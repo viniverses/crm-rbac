@@ -1,9 +1,10 @@
-import { relations, sql } from 'drizzle-orm';
+import { InferSelectModel, relations, sql } from 'drizzle-orm';
 import { boolean, pgTable, text, timestamp, uuid } from 'drizzle-orm/pg-core';
-import { users } from './users';
-import { projects } from './projects';
-import { members } from './members';
+
 import { invites } from './invites';
+import { members } from './members';
+import { projects } from './projects';
+import { users } from './users';
 
 export const organizations = pgTable('organizations', {
   id: uuid('id')
@@ -20,7 +21,7 @@ export const organizations = pgTable('organizations', {
   updatedAt: timestamp('updated_at').defaultNow().notNull(),
   deletedAt: timestamp('deleted_at'),
   ownerId: uuid('owner_id')
-    .references(() => users.id)
+    .references(() => users.id, { onDelete: 'cascade' })
     .notNull(),
 });
 
@@ -36,3 +37,5 @@ export const organizationsRelations = relations(
     }),
   }),
 );
+
+export type Organization = InferSelectModel<typeof organizations>;

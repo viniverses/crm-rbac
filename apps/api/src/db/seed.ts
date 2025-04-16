@@ -103,17 +103,17 @@ export async function seed() {
     {
       userId: user1.id,
       organizationId: organization.id,
-      role: 'admin',
+      role: 'ADMIN',
     },
     {
       userId: user2.id,
       organizationId: organization.id,
-      role: 'member',
+      role: 'MEMBER',
     },
     {
       userId: user3.id,
       organizationId: organization.id,
-      role: 'member',
+      role: 'MEMBER',
     },
   ]);
 }

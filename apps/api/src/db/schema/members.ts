@@ -1,4 +1,4 @@
-import { relations } from 'drizzle-orm';
+import { InferSelectModel, relations } from 'drizzle-orm';
 import { pgTable, unique, uuid } from 'drizzle-orm/pg-core';
 
 import { organizations } from './organizations';
@@ -9,7 +9,7 @@ export const members = pgTable(
   'members',
   {
     id: uuid('id').primaryKey().defaultRandom(),
-    role: roleEnum('role').notNull().default('member'),
+    role: roleEnum('role').notNull().default('MEMBER'),
     organizationId: uuid('organization_id')
       .notNull()
       .references(() => organizations.id, { onDelete: 'cascade' }),
@@ -30,3 +30,5 @@ export const membersRelations = relations(members, ({ one }) => ({
     references: [users.id],
   }),
 }));
+
+export type Member = InferSelectModel<typeof members>;

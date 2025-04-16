@@ -17,10 +17,10 @@ export const projects = pgTable('projects', {
   updatedAt: timestamp('updated_at').defaultNow().notNull(),
   deletedAt: timestamp('deleted_at'),
   organizationId: uuid('organization_id')
-    .references(() => organizations.id)
+    .references(() => organizations.id, { onDelete: 'cascade' })
     .notNull(),
   ownerId: uuid('owner_id')
-    .references(() => users.id)
+    .references(() => users.id, { onDelete: 'cascade' })
     .notNull(),
 });
 
