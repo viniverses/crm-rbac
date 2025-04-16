@@ -23,6 +23,7 @@ import { getMembership } from './routes/organization/get-membership';
 import { getOrganization } from './routes/organization/get-organization';
 import { getOrganizations } from './routes/organization/get-organizations';
 import { shutdownOrganization } from './routes/organization/shutdown-organization';
+import { transferOrganization } from './routes/organization/transfer-organization';
 import { updateOrganization } from './routes/organization/update-organization';
 const app = fastify({
   logger: false,
@@ -85,6 +86,7 @@ app.register(getOrganization);
 app.register(getOrganizations);
 app.register(updateOrganization);
 app.register(shutdownOrganization);
+app.register(transferOrganization);
 
 app.listen({ port: env.SERVER_PORT, host: '0.0.0.0' }).then((address) => {
   console.log(`🔥 HTTP server running at ${address}`);
