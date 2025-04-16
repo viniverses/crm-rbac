@@ -1,19 +1,26 @@
 import fastifyCors from '@fastify/cors';
+import fastifyJwt from '@fastify/jwt';
+import fastifySwagger from '@fastify/swagger';
 import fastify from 'fastify';
 import {
-  ZodTypeProvider,
+  jsonSchemaTransform,
   serializerCompiler,
   validatorCompiler,
+  ZodTypeProvider,
 } from 'fastify-type-provider-zod';
+
+import { errorHandler } from './error-handler';
+import { authenticateWithPassword } from './routes/auth/authenticate-with-password';
 import { createAccount } from './routes/auth/create-account';
-import fastifySwagger from '@fastify/swagger';
+import { getProfile } from './routes/auth/get-profile';
 
 const app = fastify({
-  logger: true,
+  logger: false,
 }).withTypeProvider<ZodTypeProvider>();
 
 app.setSerializerCompiler(serializerCompiler);
 app.setValidatorCompiler(validatorCompiler);
+app.setErrorHandler(errorHandler);
 
 app.register(fastifySwagger, {
   openapi: {
@@ -30,12 +37,12 @@ app.register(fastifySwagger, {
       },
     ],
   },
+  transform: jsonSchemaTransform,
 });
 
 app.register(import('@scalar/fastify-api-reference'), {
   routePrefix: '/docs',
   configuration: {
-    title: 'Our API Reference',
     url: '/openapi.json',
   },
 });
@@ -44,9 +51,15 @@ app.get('/openapi.json', async () => {
   return app.swagger();
 });
 
+app.register(fastifyJwt, {
+  secret: 'my-jwt-secret',
+});
+
 app.register(fastifyCors);
 app.register(createAccount);
+app.register(authenticateWithPassword);
+app.register(getProfile);
 
-app.listen({ port: 3000, host: '0.0.0.0' }).then((oi) => {
-  console.log(`🔥 HTTP server running at ${oi}`);
+app.listen({ port: 3000, host: '0.0.0.0' }).then((address) => {
+  console.log(`🔥 HTTP server running at ${address}`);
 });

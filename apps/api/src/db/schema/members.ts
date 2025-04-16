@@ -1,8 +1,9 @@
-import { pgTable, unique, uuid } from 'drizzle-orm/pg-core';
-import { organizations } from './organizations';
-import { users } from './users';
 import { relations } from 'drizzle-orm';
+import { pgTable, unique, uuid } from 'drizzle-orm/pg-core';
+
+import { organizations } from './organizations';
 import { roleEnum } from './role';
+import { users } from './users';
 
 export const members = pgTable(
   'members',

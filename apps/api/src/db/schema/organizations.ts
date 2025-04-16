@@ -24,8 +24,15 @@ export const organizations = pgTable('organizations', {
     .notNull(),
 });
 
-export const organizationsRelations = relations(organizations, ({ many }) => ({
-  members: many(members),
-  projects: many(projects),
-  invites: many(invites),
-}));
+export const organizationsRelations = relations(
+  organizations,
+  ({ one, many }) => ({
+    members: many(members),
+    projects: many(projects),
+    invites: many(invites),
+    owner: one(users, {
+      fields: [organizations.ownerId],
+      references: [users.id],
+    }),
+  }),
+);

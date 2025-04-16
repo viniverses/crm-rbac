@@ -1,5 +1,6 @@
 import { relations, sql } from 'drizzle-orm';
 import { pgEnum, pgTable, text, timestamp, uuid } from 'drizzle-orm/pg-core';
+
 import { users } from './users';
 
 export const tokenTypeEnum = pgEnum('token_types', ['PASSWORD_RECOVER']);

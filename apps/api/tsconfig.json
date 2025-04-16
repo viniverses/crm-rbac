@@ -1,7 +1,8 @@
 {
   "extends": "@crm/typescript-config/node.json",
   "include": [
-    "src/**/*"
+    "src/**/*",
+    "@types/*"
   ],
   "compilerOptions": {
     "baseUrl": ".",

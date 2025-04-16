@@ -1,10 +1,13 @@
-import { db } from '@/db/drizzle';
-import { members, organizations, users } from '@/db/schema';
 import { hash } from 'bcryptjs';
 import { and, eq } from 'drizzle-orm';
 import type { FastifyInstance } from 'fastify';
-import type { ZodTypeProvider } from 'fastify-type-provider-zod';
+import { ZodTypeProvider } from 'fastify-type-provider-zod';
 import { z } from 'zod';
+
+import { db } from '@/db/drizzle';
+import { members, organizations, users } from '@/db/schema';
+
+import { BadRequestError } from '../errors/bad-request-error';
 
 export async function createAccount(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().post(
@@ -12,12 +15,22 @@ export async function createAccount(app: FastifyInstance) {
     {
       schema: {
         tags: ['Auth'],
+        operationId: 'createAccount',
         summary: 'Create a new user',
         body: z.object({
           name: z.string(),
           email: z.string().email(),
           password: z.string().min(6),
         }),
+        response: {
+          201: z.object({
+            user: z.object({
+              id: z.string(),
+              name: z.string().nullable(),
+              email: z.string().email(),
+            }),
+          }),
+        },
       },
     },
     async (request, reply) => {
@@ -28,7 +41,7 @@ export async function createAccount(app: FastifyInstance) {
       });
 
       if (userWithSameEmail) {
-        return reply.status(400).send({ message: 'User already exists' });
+        throw new BadRequestError('User already exists.');
       }
 
       const [, domain] = email.split('@');

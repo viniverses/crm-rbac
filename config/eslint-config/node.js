@@ -14,7 +14,7 @@ module.exports = {
     ecmaVersion: 'latest',
     sourceType: 'module',
   },
-  plugins: ['@typescript-eslint'],
+  plugins: ['@typescript-eslint', 'simple-import-sort'],
   rules: {
     'prettier/prettier': [
       'error',
@@ -27,6 +27,8 @@ module.exports = {
         semi: true,
       },
     ],
+    'simple-import-sort/imports': 'error',
+    'simple-import-sort/exports': 'error',
   },
   settings: {
     'import/parsers': {

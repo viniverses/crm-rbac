@@ -1,5 +1,6 @@
 import { relations, sql } from 'drizzle-orm';
-import { pgTable, text, timestamp, uuid, boolean } from 'drizzle-orm/pg-core';
+import { boolean, pgTable, text, timestamp, uuid } from 'drizzle-orm/pg-core';
+
 import { organizations } from './organizations';
 import { users } from './users';
 

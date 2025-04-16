@@ -1,10 +1,10 @@
-import { organizations } from './schema/organizations';
 import { faker } from '@faker-js/faker';
+import { hash } from 'bcryptjs';
+import chalk from 'chalk';
 
 import { db } from './drizzle';
 import { accounts, invites, members, projects, users } from './schema';
-import { hash } from 'bcryptjs';
-import chalk from 'chalk';
+import { organizations } from './schema/organizations';
 
 export async function seed() {
   console.log(chalk.yellow('✔ Cleaning database'));

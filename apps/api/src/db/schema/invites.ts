@@ -1,15 +1,16 @@
 import { relations, sql } from 'drizzle-orm';
 import {
+  index,
   pgTable,
   text,
   timestamp,
-  uuid,
-  index,
   unique,
+  uuid,
 } from 'drizzle-orm/pg-core';
-import { users } from './users';
+
 import { organizations } from './organizations';
 import { roleEnum } from './role';
+import { users } from './users';
 
 export const invites = pgTable(
   'invites',

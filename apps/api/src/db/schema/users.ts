@@ -1,10 +1,11 @@
-import { sql, relations } from 'drizzle-orm';
+import { relations, sql } from 'drizzle-orm';
 import { pgTable, text, timestamp, uuid } from 'drizzle-orm/pg-core';
-import { tokens } from './tokens';
+
 import { accounts } from './accounts';
 import { invites } from './invites';
 import { organizations } from './organizations';
 import { projects } from './projects';
+import { tokens } from './tokens';
 
 export const users = pgTable('users', {
   id: uuid('id')
