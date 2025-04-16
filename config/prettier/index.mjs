@@ -6,7 +6,7 @@ const config = {
   semi: true,
   singleQuote: true,
   trailingComma: 'all',
-  printWidth: 80,
+  printWidth: 120,
   jsxSingleQuote: false,
   useTabs: false,
   bracketSpacing: true,
