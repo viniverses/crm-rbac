@@ -2,6 +2,7 @@ import { env } from '@crm/env';
 import fastifyCors from '@fastify/cors';
 import fastifyJwt from '@fastify/jwt';
 import fastifySwagger from '@fastify/swagger';
+import fastifySwaggerUi from '@fastify/swagger-ui';
 import fastify from 'fastify';
 import {
   jsonSchemaTransform,
@@ -27,27 +28,33 @@ app.setErrorHandler(errorHandler);
 
 app.register(fastifySwagger, {
   openapi: {
-    openapi: '3.0.0',
     info: {
       title: 'CRM API',
       description: 'CRM API',
       version: '1.0.0',
     },
-    servers: [
-      {
-        url: 'http://localhost:3000',
-        description: 'Development server',
+    components: {
+      securitySchemes: {
+        bearerAuth: {
+          type: 'http',
+          scheme: 'bearer',
+          bearerFormat: 'JWT',
+        },
       },
-    ],
+    },
   },
   transform: jsonSchemaTransform,
 });
 
 app.register(import('@scalar/fastify-api-reference'), {
-  routePrefix: '/docs',
+  routePrefix: '/docs/v2',
   configuration: {
     url: '/openapi.json',
   },
+});
+
+app.register(fastifySwaggerUi, {
+  routePrefix: '/docs/v1',
 });
 
 app.get('/openapi.json', async () => {
