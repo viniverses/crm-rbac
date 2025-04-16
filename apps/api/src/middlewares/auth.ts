@@ -19,7 +19,7 @@ export const auth = fastifyPlugin(async (app: FastifyInstance) => {
       }
     };
 
-    request.getUserMemberships = async (slug: string) => {
+    request.getUserMembership = async (slug: string) => {
       const userId = await request.getCurrentUserId();
 
       const [member] = await db
