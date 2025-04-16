@@ -1,13 +1,11 @@
-import { config } from 'dotenv';
+import { env } from '@crm/env';
 import { defineConfig } from 'drizzle-kit';
-
-config({ path: '.env' });
 
 export default defineConfig({
   schema: './src/db/schema/index.ts',
   out: './drizzle',
   dialect: 'postgresql',
   dbCredentials: {
-    url: process.env.DATABASE_URL!,
+    url: env.DATABASE_URL,
   },
 });

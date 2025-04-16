@@ -1,13 +1,11 @@
-import { config } from 'dotenv';
+import { env } from '@crm/env';
 import { drizzle } from 'drizzle-orm/neon-serverless';
 import ws from 'ws';
 
 import * as schema from './schema';
 
-config({ path: '.env' });
-
 export const db = drizzle({
-  connection: process.env.DATABASE_URL!,
+  connection: env.DATABASE_URL,
   schema,
   ws,
 });

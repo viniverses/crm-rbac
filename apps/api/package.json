@@ -2,14 +2,16 @@
   "name": "@crm/api",
   "version": "0.0.1",
   "scripts": {
-    "dev": "tsx watch src/http/server.ts",
-    "seed": "tsx src/db/seed.ts",
-    "generate": "drizzle-kit generate",
-    "migrate": "drizzle-kit migrate",
-    "studio": "drizzle-kit studio"
+    "dev": "pnpm env:load tsx watch src/http/server.ts",
+    "db:seed": "pnpm env:load tsx src/db/seed.ts",
+    "db:generate": "pnpm env:load drizzle-kit generate",
+    "db:migrate": "pnpm env:load drizzle-kit migrate",
+    "db:studio": "pnpm env:load drizzle-kit studio",
+    "env:load": "dotenv -e ../../.env --"
   },
   "dependencies": {
     "@crm/auth": "workspace:*",
+    "@crm/env": "workspace:*",
     "@fastify/cors": "^11.0.1",
     "@fastify/jwt": "^9.1.0",
     "@fastify/swagger": "^9.5.0",
@@ -20,7 +22,6 @@
     "bufferutil": "^4.0.9",
     "chalk": "4.1.2",
     "date-fns": "^4.1.0",
-    "dotenv": "^16.5.0",
     "drizzle-orm": "^0.42.0",
     "fastify": "^5.3.0",
     "fastify-plugin": "^5.0.1",
@@ -37,6 +38,7 @@
     "@faker-js/faker": "^9.7.0",
     "@types/node": "^22.14.1",
     "@types/ws": "^8.18.1",
+    "dotenv-cli": "^8.0.0",
     "drizzle-kit": "^0.31.0",
     "tsx": "^4.19.3"
   },

@@ -1,3 +1,4 @@
+import { env } from '@crm/env';
 import fastifyCors from '@fastify/cors';
 import fastifyJwt from '@fastify/jwt';
 import fastifySwagger from '@fastify/swagger';
@@ -65,6 +66,6 @@ app.register(getProfile);
 app.register(requestPasswordRecover);
 app.register(resetPassword);
 
-app.listen({ port: 3000, host: '0.0.0.0' }).then((address) => {
+app.listen({ port: env.SERVER_PORT, host: '0.0.0.0' }).then((address) => {
   console.log(`🔥 HTTP server running at ${address}`);
 });
