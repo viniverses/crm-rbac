@@ -9,5 +9,5 @@ Content-Type: application/json
 ###
 
 GET http://127.0.0.1:3000/profile
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJhZTZmOWI4NS1iMzU3LTRhNGMtOTI2MC03OWI2ODVlZjM1NmYiLCJpYXQiOjE3NDQ4MTc3MzIsImV4cCI6MTc0NTQyMjUzMn0.fwAOmB2uZaBfptUtHJA55ODrpo6u9rHgIsAqYVqk6cM
 Content-Type: application/json
