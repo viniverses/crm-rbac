@@ -2,11 +2,8 @@
 module.exports = {
   parser: '@typescript-eslint/parser',
   parserOptions: {
-    ecmaFeatures: {
-      jsx: true,
-    },
-    ecmaVersion: 'latest',
     sourceType: 'module',
+    ecmaVersion: 'latest',
   },
   extends: [
     'plugin:react/recommended',
@@ -45,8 +42,8 @@ module.exports = {
     'jsx-a11y/role-has-required-aria-props': 'warn',
     'jsx-a11y/role-supports-aria-props': 'warn',
     'react/no-unknown-property': 'error',
-
     'simple-import-sort/imports': 'error',
+    'simple-import-sort/exports': 'error',
   },
   settings: {
     react: {

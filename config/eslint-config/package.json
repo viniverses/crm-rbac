@@ -2,14 +2,15 @@
   "name": "@crm/eslint-config",
   "version": "0.0.0",
   "private": true,
-  "exports": {
-    "./base": "./base.js",
-    "./next-js": "./next.js"
-  },
+  "files": [
+    "library.js",
+    "next.js",
+    "node.js"
+  ],
   "prettier": "@crm/prettier",
   "eslintConfig": {
     "extends": [
-      "./react.js"
+      "./library.js"
     ]
   },
   "dependencies": {
