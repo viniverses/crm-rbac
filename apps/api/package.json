@@ -6,6 +6,7 @@
     "db:seed": "pnpm env:load tsx src/db/seed.ts",
     "db:generate": "pnpm env:load drizzle-kit generate",
     "db:migrate": "pnpm env:load drizzle-kit migrate",
+    "db:push": "pnpm env:load drizzle-kit push",
     "db:studio": "pnpm env:load drizzle-kit studio",
     "env:load": "dotenv -e ../../.env --"
   },

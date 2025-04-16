@@ -24,11 +24,7 @@ export async function createAccount(app: FastifyInstance) {
         }),
         response: {
           201: z.object({
-            user: z.object({
-              id: z.string(),
-              name: z.string().nullable(),
-              email: z.string().email(),
-            }),
+            userId: z.string().uuid(),
           }),
         },
       },
@@ -72,11 +68,7 @@ export async function createAccount(app: FastifyInstance) {
       }
 
       return reply.status(201).send({
-        user: {
-          id: user.id,
-          name: user.name,
-          email: user.email,
-        },
+        userId: user.id,
       });
     },
   );

@@ -7,6 +7,7 @@ import z from 'zod';
 import { db } from '@/db/drizzle';
 import { users } from '@/db/schema';
 
+import { BadRequestError } from '../errors/bad-request-error';
 import { UnauthorizedError } from '../errors/unauthorized-error';
 import { tokens } from './../../../db/schema/tokens';
 
@@ -43,16 +44,20 @@ export async function resetPassword(app: FastifyInstance) {
 
       const passwordHash = await hash(password, 6);
 
-      await db.transaction(async (tx) => {
-        await tx
-          .update(users)
-          .set({
-            passwordHash,
-          })
-          .where(eq(users.id, tokenFromCode.userId));
+      try {
+        await db.transaction(async (tx) => {
+          await tx
+            .update(users)
+            .set({
+              passwordHash,
+            })
+            .where(eq(users.id, tokenFromCode.userId));
 
-        await tx.delete(tokens).where(eq(tokens.id, code));
-      });
+          await tx.delete(tokens).where(eq(tokens.id, code));
+        });
+      } catch (error) {
+        throw new BadRequestError('Failed to reset password');
+      }
 
       return reply.status(204).send();
     },
