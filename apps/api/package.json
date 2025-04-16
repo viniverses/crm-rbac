@@ -1,0 +1,23 @@
+{
+  "name": "@crm/api",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "tsx watch src/index.ts"
+  },
+  "dependencies": {
+    "@crm/auth": "workspace:*"
+  },
+  "devDependencies": {
+    "@crm/eslint-config": "workspace:*",
+    "@crm/prettier": "workspace:*",
+    "@crm/typescript-config": "workspace:*",
+    "@types/node": "^22.14.1",
+    "tsx": "^4.19.3"
+  },
+  "prettier": "@crm/prettier",
+  "eslintConfig": {
+    "extends": [
+      "@crm/eslint-config/node"
+    ]
+  }
+}
