@@ -68,6 +68,7 @@ export async function updateOrganization(app: FastifyInstance) {
             name,
             domain,
             shouldAttachUsersByDomain,
+            updatedAt: new Date(),
           })
           .where(eq(organizations.id, organization.id));
 

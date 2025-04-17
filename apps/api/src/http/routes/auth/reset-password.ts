@@ -50,6 +50,7 @@ export async function resetPassword(app: FastifyInstance) {
             .update(users)
             .set({
               passwordHash,
+              updatedAt: new Date(),
             })
             .where(eq(users.id, tokenFromCode.userId));
 
