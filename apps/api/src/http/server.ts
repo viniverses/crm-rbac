@@ -4,12 +4,7 @@ import fastifyJwt from '@fastify/jwt';
 import fastifySwagger from '@fastify/swagger';
 import fastifySwaggerUi from '@fastify/swagger-ui';
 import fastify from 'fastify';
-import {
-  jsonSchemaTransform,
-  serializerCompiler,
-  validatorCompiler,
-  ZodTypeProvider,
-} from 'fastify-type-provider-zod';
+import { jsonSchemaTransform, serializerCompiler, validatorCompiler, ZodTypeProvider } from 'fastify-type-provider-zod';
 
 import { errorHandler } from './error-handler';
 import { authenticateWithGithub } from './routes/auth/authenticate-with-github';
@@ -25,6 +20,8 @@ import { getOrganizations } from './routes/organization/get-organizations';
 import { shutdownOrganization } from './routes/organization/shutdown-organization';
 import { transferOrganization } from './routes/organization/transfer-organization';
 import { updateOrganization } from './routes/organization/update-organization';
+import { createProject } from './routes/projects/create-project';
+
 const app = fastify({
   logger: false,
 }).withTypeProvider<ZodTypeProvider>();
@@ -87,6 +84,7 @@ app.register(getOrganizations);
 app.register(updateOrganization);
 app.register(shutdownOrganization);
 app.register(transferOrganization);
+app.register(createProject);
 
 app.listen({ port: env.SERVER_PORT, host: '0.0.0.0' }).then((address) => {
   console.log(`🔥 HTTP server running at ${address}`);
