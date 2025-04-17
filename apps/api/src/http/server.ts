@@ -13,6 +13,7 @@ import { createAccount } from './routes/auth/create-account';
 import { getProfile } from './routes/auth/get-profile';
 import { requestPasswordRecover } from './routes/auth/request-password-recover';
 import { resetPassword } from './routes/auth/reset-password';
+import { getMembers } from './routes/members/get-members';
 import { createOrganization } from './routes/organization/create-organization';
 import { getMembership } from './routes/organization/get-membership';
 import { getOrganization } from './routes/organization/get-organization';
@@ -21,6 +22,10 @@ import { shutdownOrganization } from './routes/organization/shutdown-organizatio
 import { transferOrganization } from './routes/organization/transfer-organization';
 import { updateOrganization } from './routes/organization/update-organization';
 import { createProject } from './routes/projects/create-project';
+import { deleteProject } from './routes/projects/delete-project';
+import { getProject } from './routes/projects/get-project';
+import { getProjects } from './routes/projects/get-projects';
+import { updateProject } from './routes/projects/update-project';
 
 const app = fastify({
   logger: false,
@@ -69,6 +74,7 @@ app.register(fastifyJwt, {
   secret: 'my-jwt-secret',
 });
 
+// Auth
 app.register(fastifyCors);
 app.register(createAccount);
 app.register(authenticateWithPassword);
@@ -77,6 +83,7 @@ app.register(getProfile);
 app.register(requestPasswordRecover);
 app.register(resetPassword);
 
+// Organizations
 app.register(createOrganization);
 app.register(getMembership);
 app.register(getOrganization);
@@ -84,7 +91,13 @@ app.register(getOrganizations);
 app.register(updateOrganization);
 app.register(shutdownOrganization);
 app.register(transferOrganization);
+
+// Projects
 app.register(createProject);
+app.register(deleteProject);
+app.register(getProject);
+app.register(getProjects);
+app.register(updateProject);
 
 app.listen({ port: env.SERVER_PORT, host: '0.0.0.0' }).then((address) => {
   console.log(`🔥 HTTP server running at ${address}`);
