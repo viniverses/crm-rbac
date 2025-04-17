@@ -1,5 +1,5 @@
 import { InferSelectModel, relations } from 'drizzle-orm';
-import { pgTable, unique, uuid } from 'drizzle-orm/pg-core';
+import { pgTable, timestamp, unique, uuid } from 'drizzle-orm/pg-core';
 
 import { organizations } from './organizations';
 import { roleEnum } from './role';
@@ -16,6 +16,8 @@ export const members = pgTable(
     userId: uuid('user_id')
       .notNull()
       .references(() => users.id, { onDelete: 'cascade' }),
+    createdAt: timestamp('created_at').notNull().defaultNow(),
+    updatedAt: timestamp('updated_at'),
   },
   (table) => [unique().on(table.organizationId, table.userId)],
 );
