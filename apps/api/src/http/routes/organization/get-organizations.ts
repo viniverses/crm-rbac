@@ -47,13 +47,7 @@ export async function getOrganizations(app: FastifyInstance) {
             role: members.role,
           })
           .from(organizations)
-          .innerJoin(
-            members,
-            and(
-              eq(organizations.id, members.organizationId),
-              eq(members.userId, userId),
-            ),
-          );
+          .innerJoin(members, and(eq(organizations.id, members.organizationId), eq(members.userId, userId)));
 
         return { organizations: organizationsData };
       },

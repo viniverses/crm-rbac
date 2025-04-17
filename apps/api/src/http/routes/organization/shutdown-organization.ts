@@ -35,22 +35,17 @@ export async function shutdownOrganization(app: FastifyInstance) {
         const { slug } = request.params;
 
         const userId = await request.getCurrentUserId();
-        const { membership, organization } =
-          await request.getUserMembership(slug);
+        const { membership, organization } = await request.getUserMembership(slug);
 
         const authOrganization = organizationSchema.parse(organization);
 
         const { cannot } = getUserPermissions(userId, membership.role);
 
         if (cannot('delete', authOrganization)) {
-          throw new UnauthorizedError(
-            'You are not allowed to shutdown this organization',
-          );
+          throw new UnauthorizedError('You are not allowed to shutdown this organization');
         }
 
-        await db
-          .delete(organizations)
-          .where(eq(organizations.id, organization.id));
+        await db.delete(organizations).where(eq(organizations.id, organization.id));
 
         return reply.status(204).send();
       },

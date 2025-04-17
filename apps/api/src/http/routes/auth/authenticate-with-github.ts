@@ -29,19 +29,11 @@ export async function authenticateWithGithub(app: FastifyInstance) {
     async (request, reply) => {
       const { code } = request.body;
 
-      const githubOAuthURL = new URL(
-        'https://github.com/login/oauth/access_token',
-      );
+      const githubOAuthURL = new URL('https://github.com/login/oauth/access_token');
 
       githubOAuthURL.searchParams.set('client_id', env.GITHUB_CLIENT_ID);
-      githubOAuthURL.searchParams.set(
-        'redirect_uri',
-        env.GITHUB_OAUTH_CLIENT_REDIRECT_URI,
-      );
-      githubOAuthURL.searchParams.set(
-        'client_secret',
-        env.GITHUB_CLIENT_SECRET,
-      );
+      githubOAuthURL.searchParams.set('redirect_uri', env.GITHUB_OAUTH_CLIENT_REDIRECT_URI);
+      githubOAuthURL.searchParams.set('client_secret', env.GITHUB_CLIENT_SECRET);
       githubOAuthURL.searchParams.set('code', code);
 
       const githubAccessTokenResponse = await fetch(githubOAuthURL, {
@@ -84,9 +76,7 @@ export async function authenticateWithGithub(app: FastifyInstance) {
         .parse(githubUserData);
 
       if (!email) {
-        throw new BadRequestError(
-          'Your GitHub account must have an email to authenticate.',
-        );
+        throw new BadRequestError('Your GitHub account must have an email to authenticate.');
       }
 
       let user = await db.query.users.findFirst({
@@ -105,10 +95,7 @@ export async function authenticateWithGithub(app: FastifyInstance) {
       }
 
       let account = await db.query.accounts.findFirst({
-        where: and(
-          eq(accounts.userId, user.id),
-          eq(accounts.provider, 'github'),
-        ),
+        where: and(eq(accounts.userId, user.id), eq(accounts.provider, 'github')),
       });
 
       if (!account) {

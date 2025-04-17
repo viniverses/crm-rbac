@@ -42,27 +42,20 @@ export async function updateOrganization(app: FastifyInstance) {
         const { name, domain, shouldAttachUsersByDomain } = request.body;
 
         const userId = await request.getCurrentUserId();
-        const { membership, organization } =
-          await request.getUserMembership(slug);
+        const { membership, organization } = await request.getUserMembership(slug);
 
         const authOrganization = organizationSchema.parse(organization);
 
         const { cannot } = getUserPermissions(userId, membership.role);
 
         if (cannot('update', authOrganization)) {
-          throw new UnauthorizedError(
-            'You are not allowed to update this organization',
-          );
+          throw new UnauthorizedError('You are not allowed to update this organization');
         }
 
         if (domain) {
-          const organizationWithSameDomain =
-            await db.query.organizations.findFirst({
-              where: and(
-                eq(organizations.domain, domain),
-                ne(organizations.id, organization.id),
-              ),
-            });
+          const organizationWithSameDomain = await db.query.organizations.findFirst({
+            where: and(eq(organizations.domain, domain), ne(organizations.id, organization.id)),
+          });
 
           if (organizationWithSameDomain) {
             throw new BadRequestError('Domain already in use');

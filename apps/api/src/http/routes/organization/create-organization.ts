@@ -40,10 +40,9 @@ export async function createOrganization(app: FastifyInstance) {
         const { name, domain, shouldAttachUsersByDomain } = request.body;
 
         if (domain) {
-          const organizationWithSameDomain =
-            await db.query.organizations.findFirst({
-              where: eq(organizations.domain, domain),
-            });
+          const organizationWithSameDomain = await db.query.organizations.findFirst({
+            where: eq(organizations.domain, domain),
+          });
 
           if (organizationWithSameDomain) {
             throw new BadRequestError('Domain already in use');

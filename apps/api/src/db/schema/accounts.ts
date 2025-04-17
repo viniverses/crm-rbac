@@ -3,10 +3,7 @@ import { pgEnum, pgTable, text, unique, uuid } from 'drizzle-orm/pg-core';
 
 import { users } from './users';
 
-export const accountProviderEnum = pgEnum('account_provider', [
-  'google',
-  'github',
-]);
+export const accountProviderEnum = pgEnum('account_provider', ['google', 'github']);
 
 export const accounts = pgTable(
   'accounts',

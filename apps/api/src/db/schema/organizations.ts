@@ -13,9 +13,7 @@ export const organizations = pgTable('organizations', {
   name: text('name').notNull(),
   slug: text('slug').notNull().unique(),
   domain: text('domain').unique(),
-  shouldAttachUsersByDomain: boolean('should_attach_users_by_domain')
-    .notNull()
-    .default(false),
+  shouldAttachUsersByDomain: boolean('should_attach_users_by_domain').notNull().default(false),
   avatarUrl: text('avatar_url'),
   createdAt: timestamp('created_at').defaultNow().notNull(),
   updatedAt: timestamp('updated_at').defaultNow().notNull(),
@@ -25,17 +23,14 @@ export const organizations = pgTable('organizations', {
     .notNull(),
 });
 
-export const organizationsRelations = relations(
-  organizations,
-  ({ one, many }) => ({
-    members: many(members),
-    projects: many(projects),
-    invites: many(invites),
-    owner: one(users, {
-      fields: [organizations.ownerId],
-      references: [users.id],
-    }),
+export const organizationsRelations = relations(organizations, ({ one, many }) => ({
+  members: many(members),
+  projects: many(projects),
+  invites: many(invites),
+  owner: one(users, {
+    fields: [organizations.ownerId],
+    references: [users.id],
   }),
-);
+}));
 
 export type Organization = InferSelectModel<typeof organizations>;

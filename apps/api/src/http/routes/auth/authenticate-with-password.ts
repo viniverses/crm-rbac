@@ -42,10 +42,7 @@ export async function authenticateWithPassword(app: FastifyInstance) {
         throw new BadRequestError('User does not have a password.');
       }
 
-      const isPasswordValid = await compare(
-        password,
-        userFromEmail.passwordHash,
-      );
+      const isPasswordValid = await compare(password, userFromEmail.passwordHash);
 
       if (!isPasswordValid) {
         throw new BadRequestError('Invalid credentials.');

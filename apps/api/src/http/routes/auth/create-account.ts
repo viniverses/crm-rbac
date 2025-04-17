@@ -43,10 +43,7 @@ export async function createAccount(app: FastifyInstance) {
       const [, domain] = email.split('@');
 
       const autoJoinOrganization = await db.query.organizations.findFirst({
-        where: and(
-          eq(organizations.domain, domain),
-          eq(organizations.shouldAttachUsersByDomain, true),
-        ),
+        where: and(eq(organizations.domain, domain), eq(organizations.shouldAttachUsersByDomain, true)),
       });
 
       const passwordHash = await hash(password, 6);

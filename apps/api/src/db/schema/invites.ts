@@ -1,12 +1,5 @@
 import { relations, sql } from 'drizzle-orm';
-import {
-  index,
-  pgTable,
-  text,
-  timestamp,
-  unique,
-  uuid,
-} from 'drizzle-orm/pg-core';
+import { index, pgTable, text, timestamp, unique, uuid } from 'drizzle-orm/pg-core';
 
 import { organizations } from './organizations';
 import { roleEnum } from './role';
@@ -28,10 +21,7 @@ export const invites = pgTable(
       .references(() => organizations.id, { onDelete: 'cascade' })
       .notNull(),
   },
-  (table) => [
-    index('email_idx').on(table.email),
-    unique().on(table.email, table.organizationId),
-  ],
+  (table) => [index('email_idx').on(table.email), unique().on(table.email, table.organizationId)],
 );
 
 export const invitesRelations = relations(invites, ({ one }) => ({
