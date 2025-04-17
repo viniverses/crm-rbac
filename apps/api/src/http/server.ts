@@ -13,6 +13,11 @@ import { createAccount } from './routes/auth/create-account';
 import { getProfile } from './routes/auth/get-profile';
 import { requestPasswordRecover } from './routes/auth/request-password-recover';
 import { resetPassword } from './routes/auth/reset-password';
+import { acceptInvite } from './routes/invites/accept-invite';
+import { createInvite } from './routes/invites/create-invite';
+import { getInvite } from './routes/invites/get-invite';
+import { getInvites } from './routes/invites/get-invites';
+import { rejectInvite } from './routes/invites/reject-invite';
 import { deleteMember } from './routes/members/delete-member';
 import { getMembers } from './routes/members/get-members';
 import { updateMember } from './routes/members/update-member';
@@ -57,6 +62,10 @@ app.register(fastifySwagger, {
   transform: jsonSchemaTransform,
 });
 
+app.get('/openapi.json', async () => {
+  return app.swagger();
+});
+
 app.register(import('@scalar/fastify-api-reference'), {
   routePrefix: '/docs/v2',
   configuration: {
@@ -66,10 +75,6 @@ app.register(import('@scalar/fastify-api-reference'), {
 
 app.register(fastifySwaggerUi, {
   routePrefix: '/docs/v1',
-});
-
-app.get('/openapi.json', async () => {
-  return app.swagger();
 });
 
 app.register(fastifyJwt, {
@@ -105,6 +110,13 @@ app.register(updateProject);
 app.register(getMembers);
 app.register(updateMember);
 app.register(deleteMember);
+
+// Invites
+app.register(createInvite);
+app.register(getInvite);
+app.register(getInvites);
+app.register(acceptInvite);
+app.register(rejectInvite);
 
 app.listen({ port: env.SERVER_PORT, host: '0.0.0.0' }).then((address) => {
   console.log(`🔥 HTTP server running at ${address}`);
