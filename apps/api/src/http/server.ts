@@ -13,7 +13,9 @@ import { createAccount } from './routes/auth/create-account';
 import { getProfile } from './routes/auth/get-profile';
 import { requestPasswordRecover } from './routes/auth/request-password-recover';
 import { resetPassword } from './routes/auth/reset-password';
+import { deleteMember } from './routes/members/delete-member';
 import { getMembers } from './routes/members/get-members';
+import { updateMember } from './routes/members/update-member';
 import { createOrganization } from './routes/organization/create-organization';
 import { getMembership } from './routes/organization/get-membership';
 import { getOrganization } from './routes/organization/get-organization';
@@ -98,6 +100,11 @@ app.register(deleteProject);
 app.register(getProject);
 app.register(getProjects);
 app.register(updateProject);
+
+// Members
+app.register(getMembers);
+app.register(updateMember);
+app.register(deleteMember);
 
 app.listen({ port: env.SERVER_PORT, host: '0.0.0.0' }).then((address) => {
   console.log(`🔥 HTTP server running at ${address}`);
