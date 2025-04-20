@@ -3,7 +3,7 @@
 import { HTTPError } from 'ky';
 
 import type { FormState } from '@/hooks/use-hybrid-form';
-import { createUser } from '@/http/create-user';
+import { createUser } from '@/http/auth/create-user';
 
 import { registerFormSchema } from './schema';
 

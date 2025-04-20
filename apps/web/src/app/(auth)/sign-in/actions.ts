@@ -4,7 +4,7 @@ import { HTTPError } from 'ky';
 import { cookies } from 'next/headers';
 
 import type { FormState } from '@/hooks/use-hybrid-form';
-import { signInWithPassword } from '@/http/sign-in-with-password';
+import { signInWithPassword } from '@/http/auth/sign-in-with-password';
 
 import { signInFormSchema } from './schema';
 

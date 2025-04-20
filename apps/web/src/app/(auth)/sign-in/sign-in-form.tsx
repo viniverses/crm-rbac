@@ -14,7 +14,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 import { Input } from '@/components/ui/input';
 import { useHybridForm } from '@/hooks/use-hybrid-form';
 
-import { signInWithGithub } from '../actions';
+import { signInWithGithub } from '../../../actions';
 import { signIn } from './actions';
 import { type SignInForm, signInFormSchema } from './schema';
 
@@ -35,8 +35,8 @@ export function SignInForm() {
       password: '',
     },
     onSuccess: () => {
-      toast.success('Autenticado com sucesso');
       router.push('/');
+      toast.success('Autenticado com sucesso');
     },
   });
 

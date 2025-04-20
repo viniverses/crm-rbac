@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@crm/env": "workspace:*",
+    "@crm/auth": "workspace:*",
     "@hookform/resolvers": "^5.0.1",
     "@radix-ui/react-alert-dialog": "^1.1.10",
     "@radix-ui/react-avatar": "^1.1.6",
@@ -38,7 +39,8 @@
     "recharts": "^2.15.3",
     "sonner": "^2.0.3",
     "tailwind-merge": "^3.2.0",
-    "zod": "^3.24.2"
+    "zod": "^3.24.2",
+    "zustand": "^5.0.3"
   },
   "devDependencies": {
     "@crm/eslint-config": "workspace:*",

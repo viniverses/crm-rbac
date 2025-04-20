@@ -1,6 +1,6 @@
 import { cookies } from 'next/headers';
 
-import { signInWithGithub } from '@/http/sign-in-with-github';
+import { signInWithGithub } from '@/http/auth/sign-in-with-github';
 
 export async function GET(request: Request) {
   const url = new URL(request.url);

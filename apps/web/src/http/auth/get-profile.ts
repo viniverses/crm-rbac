@@ -1,9 +1,9 @@
-import { api } from './api';
+import { api } from '../api';
 
 interface GetProfileResponse {
   user: {
     id: string;
-    name: string | null;
+    name: string;
     email: string;
     avatarUrl: string | null;
   };

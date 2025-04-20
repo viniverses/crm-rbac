@@ -1,8 +1,8 @@
 import { GalleryVerticalEnd } from 'lucide-react';
 import { redirect } from 'next/navigation';
 
+import { isAuthenticated } from '@/auth/auth';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { isAuthenticated } from '@/hooks/use-auth';
 
 export default async function AuthLayout({
   children,

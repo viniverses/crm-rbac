@@ -1,0 +1,71 @@
+import { Avatar, AvatarFallback, AvatarImage } from '@radix-ui/react-avatar';
+import { Check, ChevronsUpDown } from 'lucide-react';
+import Link from 'next/link';
+
+import { getCurrentOrganization } from '@/auth/auth';
+import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from '@/components/ui/command';
+import { getUserOrganizations } from '@/http/organizations/get-user-organizations';
+import { cn } from '@/lib/utils';
+
+import { Button } from '../ui/button';
+import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover';
+
+export async function OrganizationSwitcher() {
+  const currentOrganizationSlug = await getCurrentOrganization();
+  const { organizations } = await getUserOrganizations();
+
+  const currentOrganization = organizations.find((organization) => organization.slug === currentOrganizationSlug);
+
+  return (
+    <Popover>
+      <PopoverTrigger asChild>
+        <Button variant="outline" role="combobox" className="w-[230px] justify-between">
+          <>
+            {currentOrganization ? (
+              <>
+                <Avatar className="mr-2 overflow-hidden rounded-xs">
+                  {currentOrganization.avatarUrl && (
+                    <AvatarImage
+                      src={currentOrganization.avatarUrl}
+                      alt={currentOrganization.name}
+                      className="grayscale"
+                    />
+                  )}
+                  <AvatarFallback>{currentOrganization.name.slice(0, 2).toUpperCase()}</AvatarFallback>
+                </Avatar>
+                <span className="truncate text-sm">{currentOrganization.name}</span>
+              </>
+            ) : (
+              <span className="text-muted-foreground truncate text-sm">Selecione uma organização</span>
+            )}
+            <ChevronsUpDown className="ml-auto opacity-50" />
+          </>
+        </Button>
+      </PopoverTrigger>
+      <PopoverContent className="w-[200px] p-0">
+        <Command>
+          <CommandInput placeholder="Search team..." />
+          <CommandList>
+            <CommandEmpty>Nenhuma organização encontrada.</CommandEmpty>
+            <CommandGroup heading="Organizações">
+              {organizations.map((organization) => (
+                <CommandItem key={organization.id} className="text-sm">
+                  <Link href={`/org/${organization.slug}`}>
+                    <Avatar className="mr-2 h-5 w-5">
+                      {organization.avatarUrl && (
+                        <AvatarImage src={organization.avatarUrl} alt={organization.name} className="grayscale" />
+                      )}
+                      <AvatarFallback>{organization.name.slice(0, 2).toUpperCase()}</AvatarFallback>
+                    </Avatar>
+                    {organization.name}
+                    <Check className={cn('ml-auto', true ? 'opacity-100' : 'opacity-0')} />
+                  </Link>
+                </CommandItem>
+              ))}
+            </CommandGroup>
+          </CommandList>
+        </Command>
+      </PopoverContent>
+    </Popover>
+  );
+}

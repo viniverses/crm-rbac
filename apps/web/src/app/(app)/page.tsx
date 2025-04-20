@@ -1,4 +1,4 @@
-import { getCurrentUser } from '@/hooks/use-auth';
+import { getCurrentUser } from '@/auth/auth';
 
 export default async function Home() {
   const { user } = await getCurrentUser();
