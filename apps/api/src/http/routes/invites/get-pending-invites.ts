@@ -53,8 +53,6 @@ export async function getPendingInvites(app: FastifyInstance) {
           where: eq(users.id, userId),
         });
 
-        console.log(user);
-
         if (!user) {
           throw new BadRequestError('User not found');
         }

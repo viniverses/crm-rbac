@@ -3,7 +3,6 @@ import { cookies } from 'next/headers';
 import { signInWithGithub } from '@/http/sign-in-with-github';
 
 export async function GET(request: Request) {
-  console.log('to na rota');
   const url = new URL(request.url);
   const code = url.searchParams.get('code');
 

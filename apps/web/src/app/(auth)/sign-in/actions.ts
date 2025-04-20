@@ -35,7 +35,6 @@ export async function signIn(formData: FormData): Promise<FormState> {
     });
 
     const { token } = await signInWithPassword(data);
-    console.log(token);
 
     const cookieStore = await cookies();
 

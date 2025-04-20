@@ -11,7 +11,6 @@ export const auth = fastifyPlugin(async (app: FastifyInstance) => {
     request.getCurrentUserId = async () => {
       try {
         const { sub } = await request.jwtVerify<{ sub: string }>();
-        console.log(sub);
 
         return sub;
       } catch (error) {
@@ -28,8 +27,6 @@ export const auth = fastifyPlugin(async (app: FastifyInstance) => {
         .innerJoin(organizations, eq(members.organizationId, organizations.id))
         .where(and(eq(members.userId, userId), eq(organizations.slug, slug)))
         .limit(1);
-
-      console.log(member);
 
       if (!member) {
         throw new UnauthorizedError('User is not a member of this organization.');
