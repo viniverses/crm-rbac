@@ -38,8 +38,9 @@ export async function getMembership(app: FastifyInstance) {
         return {
           membership: {
             id: membership.id,
-            role: membership.role,
             organizationId: membership.organizationId,
+            userId: membership.userId,
+            role: membership.role,
           },
         };
       },
