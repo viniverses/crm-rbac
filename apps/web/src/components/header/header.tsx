@@ -11,11 +11,15 @@ export async function Header() {
     <header className="bg-background/95 supports-[backdrop-filter]:bg-background/60 sticky top-0 z-50 w-full border-b backdrop-blur">
       <div className="flex items-center justify-center">
         <div className="container flex h-16 max-w-4xl items-center justify-between">
-          <OrganizationSwitcher />
-          {permissions?.can('get', 'Project') && <span>Projetos</span>}
+          <div className="flex items-center gap-2">
+            <OrganizationSwitcher />
+            {permissions?.can('get', 'Project') && <span>Projetos</span>}
+          </div>
 
-          <UserNav />
-          <ThemeSwitcher />
+          <div className="flex items-center gap-2">
+            <ThemeSwitcher />
+            <UserNav />
+          </div>
         </div>
       </div>
     </header>
