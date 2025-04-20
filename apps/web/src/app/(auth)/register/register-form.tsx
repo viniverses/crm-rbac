@@ -77,7 +77,7 @@ export function RegisterForm() {
                 <FormItem>
                   <FormLabel>Email</FormLabel>
                   <FormControl>
-                    <Input placeholder="seuemail@exemplo.com" {...field} />
+                    <Input placeholder="seuemail@exemplo.com" autoComplete="off" {...field} />
                   </FormControl>
                   <FormMessage>{state.errors?.email?.[0]}</FormMessage>
                 </FormItem>
@@ -92,7 +92,7 @@ export function RegisterForm() {
                   <FormLabel>Senha</FormLabel>
                   <FormControl>
                     <div className="relative">
-                      <Input type={isPasswordVisible ? 'text' : 'password'} {...field} />
+                      <Input type={isPasswordVisible ? 'text' : 'password'} autoComplete="new-password" {...field} />
                       <button
                         className="text-muted-foreground/80 hover:text-foreground focus-visible:border-ring focus-visible:ring-ring/50 absolute inset-y-0 end-0 flex h-full w-9 items-center justify-center rounded-e-md transition-[color,box-shadow] outline-none focus:z-10 focus-visible:ring-[3px] disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50"
                         type="button"
@@ -122,7 +122,7 @@ export function RegisterForm() {
                   <FormLabel>Confirmar Senha</FormLabel>
                   <FormControl>
                     <div className="relative">
-                      <Input type={isPasswordVisible ? 'text' : 'password'} {...field} />
+                      <Input type={isPasswordVisible ? 'text' : 'password'} autoComplete="new-password" {...field} />
                       <button
                         className="text-muted-foreground/80 hover:text-foreground focus-visible:border-ring focus-visible:ring-ring/50 absolute inset-y-0 end-0 flex h-full w-9 items-center justify-center rounded-e-md transition-[color,box-shadow] outline-none focus:z-10 focus-visible:ring-[3px] disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50"
                         type="button"
