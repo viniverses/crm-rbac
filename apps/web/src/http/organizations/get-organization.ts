@@ -1,3 +1,5 @@
+import { Role } from '@crm/auth';
+
 import { api } from '@/http/api';
 
 interface GetOrganizationResponse {
@@ -5,11 +7,10 @@ interface GetOrganizationResponse {
     id: string;
     name: string;
     slug: string;
-    domain: string;
     avatarUrl: string | null;
+    role: Role;
+    domain: string | null;
     shouldAttachUsersByDomain: boolean;
-    createdAt: Date;
-    updatedAt: Date;
   };
 }
 

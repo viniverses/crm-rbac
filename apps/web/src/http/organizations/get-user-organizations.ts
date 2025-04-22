@@ -9,6 +9,8 @@ interface GetUserOrganizationsResponse {
     slug: string;
     avatarUrl: string | null;
     role: Role;
+    domain: string | null;
+    shouldAttachUsersByDomain: boolean;
   }>;
 }
 
