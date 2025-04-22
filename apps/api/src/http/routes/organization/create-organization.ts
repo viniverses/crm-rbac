@@ -26,6 +26,7 @@ export async function createOrganization(app: FastifyInstance) {
             name: z.string(),
             domain: z.string().nullish(),
             shouldAttachUsersByDomain: z.boolean().optional(),
+            avatarUrl: z.string().nullish(),
           }),
           response: {
             201: z.object({
@@ -37,7 +38,7 @@ export async function createOrganization(app: FastifyInstance) {
       async (request, reply) => {
         const userId = await request.getCurrentUserId();
 
-        const { name, domain, shouldAttachUsersByDomain } = request.body;
+        const { name, domain, shouldAttachUsersByDomain, avatarUrl } = request.body;
 
         if (domain) {
           const organizationWithSameDomain = await db.query.organizations.findFirst({
@@ -59,6 +60,7 @@ export async function createOrganization(app: FastifyInstance) {
                 slug: createSlug(name),
                 shouldAttachUsersByDomain,
                 ownerId: userId,
+                avatarUrl,
               })
               .returning();
 
