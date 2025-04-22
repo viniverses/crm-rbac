@@ -35,6 +35,8 @@ import { deleteProject } from './routes/projects/delete-project';
 import { getProject } from './routes/projects/get-project';
 import { getProjects } from './routes/projects/get-projects';
 import { updateProject } from './routes/projects/update-project';
+import { getFile } from './routes/uploads/get-file';
+import { getPreSignedUrl } from './routes/uploads/get-pre-signed-url';
 
 const app = fastify({
   logger: false,
@@ -123,6 +125,10 @@ app.register(getPendingInvites);
 
 // Billing
 app.register(getOrganizationBilling);
+
+// Uploads
+app.register(getPreSignedUrl);
+app.register(getFile);
 
 app.listen({ port: env.SERVER_PORT, host: '0.0.0.0' }).then((address) => {
   console.log(`🔥 HTTP server running at ${address}`);
