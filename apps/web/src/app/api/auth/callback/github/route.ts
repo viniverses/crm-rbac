@@ -10,7 +10,13 @@ export async function GET(request: Request) {
     return new Response(JSON.stringify({ error: 'No code provided' }), { status: 400 });
   }
 
-  const { token } = await signInWithGithub({ code });
+  const signInResponse = await signInWithGithub({ code });
+
+  if (!signInResponse.success) {
+    return new Response(JSON.stringify(signInResponse.error), { status: 400 });
+  }
+
+  const { token } = signInResponse.data;
 
   const cookieStore = await cookies();
 

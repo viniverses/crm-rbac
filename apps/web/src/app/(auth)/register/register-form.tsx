@@ -4,7 +4,6 @@ import { EyeIcon, EyeOffIcon, Loader2 } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useRef, useState } from 'react';
-import { toast } from 'sonner';
 
 import { FormErrorAlert } from '@/components/form-error-alert';
 import { Button } from '@/components/ui/button';
@@ -12,7 +11,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 import { Input } from '@/components/ui/input';
 import { useHybridForm } from '@/hooks/use-hybrid-form';
 
-import { register } from './actions';
+import { register } from '../actions';
 import { type RegisterForm, registerFormSchema } from './schema';
 
 export function RegisterForm() {
@@ -31,8 +30,6 @@ export function RegisterForm() {
       passwordConfirmation: '',
     },
     onSuccess: () => {
-      toast.success('Usuário criado com sucesso');
-
       const queryParams = new URLSearchParams({
         email: form.getValues('email'),
       });
@@ -58,7 +55,7 @@ export function RegisterForm() {
                   <FormControl>
                     <Input placeholder="Seu nome" {...field} />
                   </FormControl>
-                  <FormMessage>{state.errors?.name?.[0]}</FormMessage>
+                  <FormMessage>{state.error?.issues?.name?.[0]}</FormMessage>
                 </FormItem>
               )}
             />
@@ -71,7 +68,7 @@ export function RegisterForm() {
                   <FormControl>
                     <Input placeholder="seuemail@exemplo.com" autoComplete="off" {...field} />
                   </FormControl>
-                  <FormMessage>{state.errors?.email?.[0]}</FormMessage>
+                  <FormMessage>{state.error?.issues?.email?.[0]}</FormMessage>
                 </FormItem>
               )}
             />
@@ -101,7 +98,7 @@ export function RegisterForm() {
                       </button>
                     </div>
                   </FormControl>
-                  <FormMessage>{state.errors?.password?.[0]}</FormMessage>
+                  <FormMessage>{state.error?.issues?.password?.[0]}</FormMessage>
                 </FormItem>
               )}
             />
@@ -131,7 +128,7 @@ export function RegisterForm() {
                       </button>
                     </div>
                   </FormControl>
-                  <FormMessage>{state.errors?.password?.[0]}</FormMessage>
+                  <FormMessage>{state.error?.issues?.passwordConfirmation?.[0]}</FormMessage>
                 </FormItem>
               )}
             />

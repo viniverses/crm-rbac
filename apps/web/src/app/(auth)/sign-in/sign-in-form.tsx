@@ -5,7 +5,6 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useRef, useState } from 'react';
-import { toast } from 'sonner';
 
 import githubIcon from '@/assets/svg/github.svg';
 import { FormErrorAlert } from '@/components/form-error-alert';
@@ -15,7 +14,7 @@ import { Input } from '@/components/ui/input';
 import { useHybridForm } from '@/hooks/use-hybrid-form';
 
 import { signInWithGithub } from '../../../actions';
-import { signIn } from './actions';
+import { signIn } from '../actions';
 import { type SignInForm, signInFormSchema } from './schema';
 
 export function SignInForm() {
@@ -36,7 +35,6 @@ export function SignInForm() {
     },
     onSuccess: () => {
       router.push('/');
-      toast.success('Autenticado com sucesso');
     },
   });
 
@@ -65,10 +63,11 @@ export function SignInForm() {
                   <FormControl>
                     <Input placeholder="seuemail@exemplo.com" {...field} />
                   </FormControl>
-                  <FormMessage>{state.errors?.email?.[0]}</FormMessage>
+                  <FormMessage>{state.error?.issues?.email?.[0]}</FormMessage>
                 </FormItem>
               )}
             />
+
             <FormField
               control={form.control}
               name="password"
@@ -99,7 +98,7 @@ export function SignInForm() {
                       </button>
                     </div>
                   </FormControl>
-                  <FormMessage>{state.errors?.password?.[0]}</FormMessage>
+                  <FormMessage>{state.error?.issues?.password?.[0]}</FormMessage>
                 </FormItem>
               )}
             />

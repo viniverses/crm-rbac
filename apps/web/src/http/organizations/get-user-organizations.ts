@@ -2,6 +2,9 @@ import { Role } from '@crm/auth';
 
 import { api } from '@/http/api';
 
+import { handleApiError } from '../error-handler';
+import { APIResponse } from '../types';
+
 interface GetUserOrganizationsResponse {
   organizations: Array<{
     id: string;
@@ -14,8 +17,15 @@ interface GetUserOrganizationsResponse {
   }>;
 }
 
-export async function getUserOrganizations(): Promise<GetUserOrganizationsResponse> {
-  const response = await api.get('organizations');
+export async function getUserOrganizations(): Promise<APIResponse<GetUserOrganizationsResponse>> {
+  try {
+    const response = await api.get('organizations').json<GetUserOrganizationsResponse>();
 
-  return response.json<GetUserOrganizationsResponse>();
+    return {
+      success: true,
+      data: response,
+    };
+  } catch (error) {
+    return handleApiError(error);
+  }
 }

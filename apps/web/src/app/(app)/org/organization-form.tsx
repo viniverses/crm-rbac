@@ -14,28 +14,25 @@ import { AvatarUploaderField } from '@/components/upload/avatar-uploader-field';
 import { useHybridForm } from '@/hooks/use-hybrid-form';
 
 import { createOrganizationAction, updateOrganizationAction } from './actions';
-import { type CreateOrganizationForm, createOrganizationFormSchema } from './schema';
+import { type OrganizationForm, organizationFormSchemaClient } from './schema';
 
 type OrganizationFormProps = {
-  defaultValues?: CreateOrganizationForm;
+  defaultValues?: OrganizationForm;
   mode?: 'create' | 'edit';
 };
 
 export function OrganizationForm({ defaultValues, mode = 'create' }: OrganizationFormProps) {
   const formRef = useRef<HTMLFormElement>(null);
   const [isUploadingImage, setIsUploadingImage] = useState(false);
-  const { form, formAction, state, isPending, handleSubmit } = useHybridForm<CreateOrganizationForm>({
-    schema: createOrganizationFormSchema,
+  const { form, formAction, state, isPending, handleSubmit } = useHybridForm<OrganizationForm>({
+    schema: organizationFormSchemaClient,
     formRef: formRef,
     serverAction: mode === 'create' ? createOrganizationAction : updateOrganizationAction,
     defaultValues: defaultValues ?? {
       name: '',
-      domain: '',
+      domain: null,
+      shouldAttachUsersByDomain: false,
       avatarUrl: undefined,
-    },
-    onSuccess: () => {
-      // router.push('/organizations');
-      toast.success(mode === 'create' ? 'Organização criada com sucesso' : 'Organização atualizada com sucesso');
     },
   });
 
@@ -76,7 +73,7 @@ export function OrganizationForm({ defaultValues, mode = 'create' }: Organizatio
                 <FormControl>
                   <Input placeholder="Nome da organização" {...field} />
                 </FormControl>
-                <FormMessage>{state.errors?.name?.[0]}</FormMessage>
+                <FormMessage>{state.error?.issues?.name?.[0]}</FormMessage>
               </FormItem>
             )}
           />
@@ -102,7 +99,7 @@ export function OrganizationForm({ defaultValues, mode = 'create' }: Organizatio
                     />
                   </div>
                 </FormControl>
-                <FormMessage>{state.errors?.domain?.[0]}</FormMessage>
+                <FormMessage>{state.error?.issues?.domain?.[0]}</FormMessage>
               </FormItem>
             )}
           />

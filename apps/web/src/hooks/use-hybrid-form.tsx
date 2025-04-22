@@ -1,13 +1,15 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import { startTransition, useActionState } from 'react';
+import { startTransition, useActionState, useEffect } from 'react';
 import { DefaultValues, FieldValues, useForm, UseFormReturn } from 'react-hook-form';
+import { toast } from 'sonner';
 import { z } from 'zod';
+
+import { BaseError } from '@/http/types';
 
 export type FormState = {
   success: boolean;
   message?: string;
-  fields?: Record<string, string>;
-  errors?: Record<string, string[]> | null;
+  error?: BaseError;
 };
 
 type UseHybridFormProps<T extends FieldValues> = {
@@ -37,38 +39,36 @@ export function useHybridForm<T extends FieldValues>({
 }: UseHybridFormProps<T>): UseHybridFormReturn<T> {
   const [state, formAction, isPending] = useActionState(
     async (_: FormState, data: FormData) => {
-      const response = await serverAction(data);
-
-      if (response.success && onSuccess) {
-        await onSuccess();
-      }
-
-      return response;
+      return await serverAction(data);
     },
     initialState ?? { success: false },
   );
 
   const currentState = state ?? { success: false };
 
+  useEffect(() => {
+    if (currentState.success) {
+      toast.success(currentState.message);
+      onSuccess?.();
+    } else if (currentState.error || currentState.message) {
+      toast.error(currentState.message || 'An error occurred');
+    }
+  }, [currentState]);
+
   const form = useForm<T>({
     resolver: zodResolver(schema),
     defaultValues: {
       ...(defaultValues ?? ({} as DefaultValues<T>)),
-      ...(currentState?.fields ?? {}),
+      ...(currentState?.error?.fields ?? {}),
     },
   });
 
-  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-
-    const data = new FormData(formRef.current!);
-
-    form.handleSubmit(() => {
-      startTransition(() => {
-        formAction(data);
-      });
-    })(e);
-  }
+  const handleSubmit = form.handleSubmit(async () => {
+    startTransition(async () => {
+      const data = new FormData(formRef.current!);
+      await formAction(data);
+    });
+  });
 
   return {
     form,

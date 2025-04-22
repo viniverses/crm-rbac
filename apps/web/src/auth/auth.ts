@@ -42,9 +42,9 @@ export async function getCurrentMembership() {
     return null;
   }
 
-  const membership = await getMembership(currentOrganization);
+  const { data } = await getMembership(currentOrganization);
 
-  return membership;
+  return data;
 }
 
 export async function ability() {

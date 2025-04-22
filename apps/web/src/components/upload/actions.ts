@@ -18,7 +18,7 @@ export async function uploadFile(file: File): Promise<string | undefined> {
     });
 
     if (!response.ok) {
-      throw new Error('Failed to upload file');
+      throw new Error('Failed to upload file.');
     }
 
     return publicUrl;

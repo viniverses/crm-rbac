@@ -2,14 +2,15 @@ import { OrganizationForm } from '@/app/(app)/org/organization-form';
 import { ErrorMessage } from '@/components/error-message';
 import { getOrganization } from '@/http/organizations/get-organization';
 
-interface OrganizationPageProps {
+interface UpdateOrganizationPageProps {
   params: Promise<{
     slug: string;
   }>;
 }
 
-export default async function OrganizationPage({ params }: OrganizationPageProps) {
+export default async function UpdateOrganizationPage({ params }: UpdateOrganizationPageProps) {
   const { slug } = await params;
+
   const response = await getOrganization(slug);
 
   if (!response.success) {
@@ -19,11 +20,8 @@ export default async function OrganizationPage({ params }: OrganizationPageProps
   const { organization } = response.data;
 
   return (
-    <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold">Configurações da Organização</h1>
-      </div>
-
+    <div>
+      <div>Update Organization Page</div>
       <OrganizationForm
         defaultValues={{
           name: organization.name,

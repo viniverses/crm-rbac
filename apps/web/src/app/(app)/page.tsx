@@ -1,7 +1,14 @@
 import { getCurrentUser } from '@/auth/auth';
+import { ErrorMessage } from '@/components/error-message';
 
 export default async function Home() {
-  const { user } = await getCurrentUser();
+  const userResponse = await getCurrentUser();
+
+  if (!userResponse.success) {
+    return <ErrorMessage message={userResponse.message} />;
+  }
+
+  const { user } = userResponse.data;
 
   return (
     <div>

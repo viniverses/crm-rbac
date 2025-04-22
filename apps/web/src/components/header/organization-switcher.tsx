@@ -20,9 +20,10 @@ import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover';
 
 export async function OrganizationSwitcher() {
   const currentOrganizationSlug = await getCurrentOrganization();
-  const { organizations } = await getUserOrganizations();
+  const { data } = await getUserOrganizations();
+  const organizations = data?.organizations;
 
-  const currentOrganization = organizations.find((organization) => organization.slug === currentOrganizationSlug);
+  const currentOrganization = organizations?.find((organization) => organization.slug === currentOrganizationSlug);
 
   return (
     <Popover>
@@ -56,7 +57,7 @@ export async function OrganizationSwitcher() {
           <CommandList>
             <CommandEmpty>Nenhuma organização encontrada.</CommandEmpty>
             <CommandGroup heading="Organizações">
-              {organizations.map((organization) => (
+              {organizations?.map((organization) => (
                 <CommandItem key={organization.id} className="text-sm" asChild>
                   <a href={`/org/${organization.slug}`}>
                     <Avatar className="mr-2 h-5 w-5 overflow-hidden rounded-xs">

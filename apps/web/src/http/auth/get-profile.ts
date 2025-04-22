@@ -1,4 +1,6 @@
 import { api } from '../api';
+import { handleApiError } from '../error-handler';
+import { APIResponse } from '../types';
 
 interface GetProfileResponse {
   user: {
@@ -9,8 +11,15 @@ interface GetProfileResponse {
   };
 }
 
-export async function getProfile(): Promise<GetProfileResponse> {
-  const response = await api.get('profile');
+export async function getProfile(): Promise<APIResponse<GetProfileResponse>> {
+  try {
+    const response = await api.get('profile').json<GetProfileResponse>();
 
-  return response.json<GetProfileResponse>();
+    return {
+      success: true,
+      data: response,
+    };
+  } catch (error) {
+    return handleApiError(error);
+  }
 }

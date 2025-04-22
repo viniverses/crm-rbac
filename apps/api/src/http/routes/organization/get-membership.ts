@@ -5,6 +5,8 @@ import z from 'zod';
 
 import { auth } from '@/middlewares/auth';
 
+import { NotFoundError } from '../errors/not-found-error';
+
 export async function getMembership(app: FastifyInstance) {
   app
     .withTypeProvider<ZodTypeProvider>()
@@ -34,6 +36,10 @@ export async function getMembership(app: FastifyInstance) {
       async (request) => {
         const { slug } = request.params;
         const { membership } = await request.getUserMembership(slug);
+
+        if (!membership) {
+          throw new NotFoundError('Membership not found');
+        }
 
         return {
           membership: {

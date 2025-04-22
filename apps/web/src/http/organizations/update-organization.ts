@@ -1,5 +1,8 @@
 import { api } from '@/http/api';
 
+import { handleApiError } from '../error-handler';
+import { APIResponse } from '../types';
+
 interface UpdateOrganizationRequest {
   slug: string;
   name: string;
@@ -16,16 +19,27 @@ export async function updateOrganization({
   domain,
   shouldAttachUsersByDomain,
   avatarUrl,
-}: UpdateOrganizationRequest): Promise<UpdateOrganizationResponse> {
-  await api.put(`organizations/${slug}`, {
-    json: {
-      name,
-      domain,
-      shouldAttachUsersByDomain,
-      avatarUrl,
-    },
-    next: {
-      tags: ['organizations'],
-    },
-  });
+}: UpdateOrganizationRequest): Promise<APIResponse<UpdateOrganizationResponse>> {
+  try {
+    const response = await api
+      .put(`organizations/${slug}`, {
+        json: {
+          name,
+          domain,
+          shouldAttachUsersByDomain,
+          avatarUrl,
+        },
+        next: {
+          tags: ['organizations'],
+        },
+      })
+      .json<UpdateOrganizationResponse>();
+
+    return {
+      success: true,
+      data: response,
+    };
+  } catch (error) {
+    return handleApiError(error);
+  }
 }

@@ -19,7 +19,6 @@ export function InterceptedSheetContent({
   const router = useRouter();
 
   const handleOpenChange = (open: boolean) => {
-    console.log('InterceptedSheetContent', open);
     if (!open) {
       router.back();
     }

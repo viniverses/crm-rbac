@@ -1,125 +1,78 @@
 'use server';
 
-import { HTTPError } from 'ky';
 import { revalidateTag } from 'next/cache';
 
-import { createOrganizationFormSchema } from '@/app/(app)/org/schema';
+import { organizationFormSchemaServer } from '@/app/(app)/org/schema';
 import { getCurrentOrganization } from '@/auth/auth';
 import { FormState } from '@/hooks/use-hybrid-form';
+import { handleApiError } from '@/http/error-handler';
 import { createOrganization } from '@/http/organizations/create-organization';
 import { updateOrganization } from '@/http/organizations/update-organization';
+import { parseFormData } from '@/lib/zod-error-handler';
 
 export async function createOrganizationAction(formData: FormData): Promise<FormState> {
   try {
-    const parsedFormData = Object.fromEntries(formData);
+    const { name, domain, shouldAttachUsersByDomain, avatarUrl } = parseFormData(
+      organizationFormSchemaServer,
+      formData,
+    );
 
-    const formDataWithBoolean = {
-      ...parsedFormData,
-      shouldAttachUsersByDomain: parsedFormData.shouldAttachUsersByDomain === 'on',
-    };
-
-    const { success, data, error } = createOrganizationFormSchema.safeParse(formDataWithBoolean);
-
-    if (!success) {
-      const fields: Record<string, string> = {};
-      for (const key of Object.keys(parsedFormData)) {
-        fields[key] = parsedFormData[key].toString();
-      }
-
-      return {
-        message: 'Invalid form data',
-        success: false,
-        errors: error.flatten().fieldErrors,
-        fields,
-      };
-    }
-
-    const { name, domain, shouldAttachUsersByDomain, avatarUrl } = data;
-
-    await createOrganization({
+    const response = await createOrganization({
       name,
       domain,
       shouldAttachUsersByDomain: shouldAttachUsersByDomain ?? false,
       avatarUrl: avatarUrl ?? null,
     });
 
-    revalidateTag('organizations');
-
-    return {
-      message: 'Organization created successfully',
-      success: true,
-    };
-  } catch (error) {
-    if (error instanceof HTTPError) {
-      const { message } = await error.response.json<{ message: string }>();
+    if (!response.success) {
       return {
         success: false,
-        message,
+        message: response.message,
       };
     }
 
+    revalidateTag('organizations');
+
     return {
-      success: false,
-      message: 'Unexpected error. Please try again later.',
+      message: 'Organização criada com sucesso.',
+      success: true,
     };
+  } catch (error) {
+    return handleApiError(error);
   }
 }
 
 export async function updateOrganizationAction(formData: FormData): Promise<FormState> {
   try {
     const slug = await getCurrentOrganization();
-    const parsedFormData = Object.fromEntries(formData);
 
-    const formDataWithBoolean = {
-      ...parsedFormData,
-      shouldAttachUsersByDomain: parsedFormData.shouldAttachUsersByDomain === 'on',
-    };
+    const { name, domain, avatarUrl, shouldAttachUsersByDomain } = parseFormData(
+      organizationFormSchemaServer,
+      formData,
+    );
 
-    const { success, data, error } = createOrganizationFormSchema.safeParse(formDataWithBoolean);
-
-    if (!success) {
-      const fields: Record<string, string> = {};
-      for (const key of Object.keys(parsedFormData)) {
-        fields[key] = parsedFormData[key].toString();
-      }
-
-      return {
-        message: 'Invalid form data',
-        success: false,
-        errors: error.flatten().fieldErrors,
-        fields,
-      };
-    }
-
-    const { name, domain, shouldAttachUsersByDomain, avatarUrl } = data;
-
-    await updateOrganization({
+    const response = await updateOrganization({
       slug: slug!,
       name,
       domain,
-      shouldAttachUsersByDomain: shouldAttachUsersByDomain ?? false,
+      shouldAttachUsersByDomain,
       avatarUrl: avatarUrl ?? null,
     });
+
+    if (!response.success) {
+      return {
+        success: false,
+        message: response.message,
+      };
+    }
 
     revalidateTag('organizations');
 
     return {
-      message: 'Organization updated successfully',
       success: true,
+      message: 'Organização atualizada com sucesso.',
     };
   } catch (error) {
-    if (error instanceof HTTPError) {
-      const { message } = await error.response.json<{ message: string }>();
-      return {
-        success: false,
-        message,
-      };
-    }
-
-    console.error(error);
-    return {
-      success: false,
-      message: 'Unexpected error. Please try again later.',
-    };
+    return handleApiError(error);
   }
 }
