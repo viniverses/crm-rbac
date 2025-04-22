@@ -1,8 +1,14 @@
+import { roleSchema } from '@crm/auth';
+import { and, eq } from 'drizzle-orm';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import z from 'zod';
 
+import { db } from '@/db/drizzle';
+import { members, organizations } from '@/db/schema';
 import { auth } from '@/middlewares/auth';
+
+import { NotFoundError } from '../errors/not-found-error';
 
 export async function getOrganization(app: FastifyInstance) {
   app
@@ -13,7 +19,7 @@ export async function getOrganization(app: FastifyInstance) {
       {
         schema: {
           tags: ['Organizations'],
-          summary: 'Get details of an organization by slug',
+          summary: 'Get organization by slug',
           operationId: 'getOrganization',
           security: [{ bearerAuth: [] }],
           params: z.object({
@@ -25,12 +31,8 @@ export async function getOrganization(app: FastifyInstance) {
                 id: z.string().uuid(),
                 name: z.string(),
                 slug: z.string(),
-                domain: z.string().nullable(),
-                shouldAttachUsersByDomain: z.boolean(),
-                avatarUrl: z.string().url().nullable(),
-                createdAt: z.date(),
-                updatedAt: z.date(),
-                ownerId: z.string().uuid(),
+                avatarUrl: z.string().nullable(),
+                role: roleSchema,
               }),
             }),
           },
@@ -39,9 +41,25 @@ export async function getOrganization(app: FastifyInstance) {
       async (request) => {
         const { slug } = request.params;
 
-        const { organization } = await request.getUserMembership(slug);
+        const userId = await request.getCurrentUserId();
 
-        return { organization };
+        const [data] = await db
+          .select({
+            id: organizations.id,
+            name: organizations.name,
+            slug: organizations.slug,
+            avatarUrl: organizations.avatarUrl,
+            role: members.role,
+          })
+          .from(organizations)
+          .innerJoin(members, and(eq(organizations.id, members.organizationId), eq(members.userId, userId)))
+          .where(eq(organizations.slug, slug));
+
+        if (!data) {
+          throw new NotFoundError('Organization not found');
+        }
+
+        return { organization: data };
       },
     );
 }
