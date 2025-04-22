@@ -10,12 +10,11 @@ export interface APISuccessResponse<T> {
   data: T;
 }
 
-export interface APIErrorResponse {
-  success: false;
-  data: null;
+export type APIErrorResponse = {
   message: string;
   error: BaseError;
-}
+  success: false;
+};
 
 export type APIResponse<T> = APISuccessResponse<T> | APIErrorResponse;
 
@@ -29,16 +28,7 @@ export function createSuccessResponse<T>(data: T): APISuccessResponse<T> {
 export function createErrorResponse(error: BaseError): APIErrorResponse {
   return {
     success: false,
-    data: null,
     message: error.message,
     error,
   };
 }
-
-export const ErrorCodes = {
-  NOT_FOUND: 'NOT_FOUND',
-  UNAUTHORIZED: 'UNAUTHORIZED',
-  FORBIDDEN: 'FORBIDDEN',
-  VALIDATION_ERROR: 'VALIDATION_ERROR',
-  INTERNAL_ERROR: 'INTERNAL_ERROR',
-} as const;

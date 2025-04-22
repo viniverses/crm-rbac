@@ -6,11 +6,11 @@ import { organizationFormSchemaServer } from '@/app/(app)/org/schema';
 import { getCurrentOrganization } from '@/auth/auth';
 import { FormState } from '@/hooks/use-hybrid-form';
 import { handleApiError } from '@/http/error-handler';
-import { createOrganization } from '@/http/organizations/create-organization';
+import { createOrganization, CreateOrganizationResponse } from '@/http/organizations/create-organization';
 import { updateOrganization } from '@/http/organizations/update-organization';
 import { parseFormData } from '@/lib/zod-error-handler';
 
-export async function createOrganizationAction(formData: FormData): Promise<FormState> {
+export async function createOrganizationAction(formData: FormData): Promise<FormState<CreateOrganizationResponse>> {
   try {
     const { name, domain, shouldAttachUsersByDomain, avatarUrl } = parseFormData(
       organizationFormSchemaServer,
@@ -36,6 +36,7 @@ export async function createOrganizationAction(formData: FormData): Promise<Form
     return {
       message: 'Organização criada com sucesso.',
       success: true,
+      data: response.data,
     };
   } catch (error) {
     return handleApiError(error);

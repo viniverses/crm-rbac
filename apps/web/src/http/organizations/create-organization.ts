@@ -10,7 +10,7 @@ interface CreateOrganizationRequest {
   avatarUrl: string | null;
 }
 
-interface CreateOrganizationResponse {
+export interface CreateOrganizationResponse {
   organizationId: string;
 }
 

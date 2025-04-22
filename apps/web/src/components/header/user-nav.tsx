@@ -7,13 +7,13 @@ import { Button } from '../ui/button';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '../ui/dropdown-menu';
 
 export async function UserNav() {
-  const { data } = await getCurrentUser();
+  const currentUserResponse = await getCurrentUser();
 
-  if (!data) {
+  if (!currentUserResponse.success) {
     return null;
   }
 
-  const { user } = data;
+  const { user } = currentUserResponse.data;
 
   return (
     <div className="flex items-center gap-4">

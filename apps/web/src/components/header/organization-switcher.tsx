@@ -20,10 +20,14 @@ import { Popover, PopoverContent, PopoverTrigger } from '../ui/popover';
 
 export async function OrganizationSwitcher() {
   const currentOrganizationSlug = await getCurrentOrganization();
-  const { data } = await getUserOrganizations();
-  const organizations = data?.organizations;
+  const userOrganizationsResponse = await getUserOrganizations();
+  let organizations = null;
+  let currentOrganization = null;
 
-  const currentOrganization = organizations?.find((organization) => organization.slug === currentOrganizationSlug);
+  if (userOrganizationsResponse.success) {
+    organizations = userOrganizationsResponse.data.organizations;
+    currentOrganization = organizations?.find((organization) => organization.slug === currentOrganizationSlug);
+  }
 
   return (
     <Popover>

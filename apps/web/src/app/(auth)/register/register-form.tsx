@@ -21,7 +21,6 @@ export function RegisterForm() {
 
   const { form, formAction, state, isPending, handleSubmit } = useHybridForm<RegisterForm>({
     schema: registerFormSchema,
-    formRef: formRef,
     serverAction: register,
     defaultValues: {
       name: '',
@@ -44,7 +43,9 @@ export function RegisterForm() {
       <div className="grid gap-6">
         <Form {...form}>
           <form onSubmit={handleSubmit} ref={formRef} action={formAction} className="grid gap-6">
-            <FormErrorAlert state={state} title="Falha ao criar conta" description={state.message} />
+            {!state.success && state.message && (
+              <FormErrorAlert title="Falha ao criar conta" description={state.message} />
+            )}
 
             <FormField
               control={form.control}

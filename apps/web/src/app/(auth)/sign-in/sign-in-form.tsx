@@ -27,7 +27,6 @@ export function SignInForm() {
 
   const { form, formAction, state, isPending, handleSubmit } = useHybridForm<SignInForm>({
     schema: signInFormSchema,
-    formRef: formRef,
     serverAction: signIn,
     defaultValues: {
       email: searchParams.get('email') ?? '',
@@ -52,7 +51,9 @@ export function SignInForm() {
         </div>
         <Form {...form}>
           <form onSubmit={handleSubmit} ref={formRef} action={formAction} className="grid gap-6">
-            <FormErrorAlert state={state} title="Falha ao autenticar" description={state.message} />
+            {!state.success && state.message && (
+              <FormErrorAlert title="Falha ao autenticar" description={state.message} />
+            )}
 
             <FormField
               control={form.control}

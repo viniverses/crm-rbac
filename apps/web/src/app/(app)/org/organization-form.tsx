@@ -1,6 +1,7 @@
 'use client';
 
 import { Loader2 } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 import { useRef, useState } from 'react';
 import { toast } from 'sonner';
 
@@ -12,6 +13,7 @@ import { Input } from '@/components/ui/input';
 import { uploadFile } from '@/components/upload/actions';
 import { AvatarUploaderField } from '@/components/upload/avatar-uploader-field';
 import { useHybridForm } from '@/hooks/use-hybrid-form';
+import { CreateOrganizationResponse } from '@/http/organizations/create-organization';
 
 import { createOrganizationAction, updateOrganizationAction } from './actions';
 import { type OrganizationForm, organizationFormSchemaClient } from './schema';
@@ -22,17 +24,27 @@ type OrganizationFormProps = {
 };
 
 export function OrganizationForm({ defaultValues, mode = 'create' }: OrganizationFormProps) {
+  const create = mode === 'create';
+
+  const router = useRouter();
   const formRef = useRef<HTMLFormElement>(null);
   const [isUploadingImage, setIsUploadingImage] = useState(false);
-  const { form, formAction, state, isPending, handleSubmit } = useHybridForm<OrganizationForm>({
+  const { form, formAction, state, isPending, handleSubmit } = useHybridForm<
+    OrganizationForm,
+    CreateOrganizationResponse
+  >({
     schema: organizationFormSchemaClient,
-    formRef: formRef,
-    serverAction: mode === 'create' ? createOrganizationAction : updateOrganizationAction,
+    serverAction: create ? createOrganizationAction : updateOrganizationAction,
     defaultValues: defaultValues ?? {
       name: '',
       domain: null,
       shouldAttachUsersByDomain: false,
       avatarUrl: undefined,
+    },
+    onSuccess: (data) => {
+      if (create) {
+        router.push(`/org/${data?.organizationId}`);
+      }
     },
   });
 
@@ -58,11 +70,12 @@ export function OrganizationForm({ defaultValues, mode = 'create' }: Organizatio
         <form onSubmit={handleSubmit} ref={formRef} action={formAction} className="grid gap-6">
           <AvatarUploaderField name="avatarUrl" control={form.control} onUpload={handleUploadImage} maxSizeInMB={10} />
 
-          <FormErrorAlert
-            state={state}
-            title={`Falha ao ${mode === 'create' ? 'criar' : 'atualizar'} organização`}
-            description={state.message}
-          />
+          {!state.success && state.message && (
+            <FormErrorAlert
+              title={`Falha ao ${mode === 'create' ? 'criar' : 'atualizar'} organização`}
+              description={state.message}
+            />
+          )}
 
           <FormField
             control={form.control}
