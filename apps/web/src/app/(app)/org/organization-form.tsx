@@ -63,7 +63,7 @@ export function OrganizationForm({ defaultValues, mode = 'create' }: Organizatio
 
           <FormErrorAlert
             state={state}
-            title="Falha ao {mode === 'create' ? 'criar' : 'atualizar'} organização"
+            title={`Falha ao ${mode === 'create' ? 'criar' : 'atualizar'} organização`}
             description={state.message}
           />
 
