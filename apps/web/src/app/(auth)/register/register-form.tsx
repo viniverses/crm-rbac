@@ -1,12 +1,12 @@
 'use client';
 
-import { AlertTriangle, EyeIcon, EyeOffIcon, Loader2 } from 'lucide-react';
+import { EyeIcon, EyeOffIcon, Loader2 } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useRef, useState } from 'react';
 import { toast } from 'sonner';
 
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
+import { FormErrorAlert } from '@/components/form-error-alert';
 import { Button } from '@/components/ui/button';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
@@ -47,15 +47,7 @@ export function RegisterForm() {
       <div className="grid gap-6">
         <Form {...form}>
           <form onSubmit={handleSubmit} ref={formRef} action={formAction} className="grid gap-6">
-            {!state.success && state.message && (
-              <Alert variant="destructive">
-                <AlertTriangle className="size-4" />
-                <AlertTitle>Falha ao autenticar</AlertTitle>
-                <AlertDescription>
-                  <p>{state.message}</p>
-                </AlertDescription>
-              </Alert>
-            )}
+            <FormErrorAlert state={state} title="Falha ao criar conta" description={state.message} />
 
             <FormField
               control={form.control}

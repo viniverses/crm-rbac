@@ -1,10 +1,10 @@
 'use client';
 
-import { AlertTriangle, Loader2 } from 'lucide-react';
+import { Loader2 } from 'lucide-react';
 import { useRef, useState } from 'react';
 import { toast } from 'sonner';
 
-import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
+import { FormErrorAlert } from '@/components/form-error-alert';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
@@ -59,17 +59,13 @@ export function OrganizationForm({ defaultValues, mode = 'create' }: Organizatio
     <div className="flex flex-col gap-6">
       <Form {...form}>
         <form onSubmit={handleSubmit} ref={formRef} action={formAction} className="grid gap-6">
-          {!state.success && state.message && (
-            <Alert variant="destructive">
-              <AlertTriangle className="size-4" />
-              <AlertTitle>Falha ao {mode === 'create' ? 'criar' : 'atualizar'} organização</AlertTitle>
-              <AlertDescription>
-                <p>{state.message}</p>
-              </AlertDescription>
-            </Alert>
-          )}
-
           <AvatarUploaderField name="avatarUrl" control={form.control} onUpload={handleUploadImage} maxSizeInMB={10} />
+
+          <FormErrorAlert
+            state={state}
+            title="Falha ao {mode === 'create' ? 'criar' : 'atualizar'} organização"
+            description={state.message}
+          />
 
           <FormField
             control={form.control}
