@@ -9,7 +9,7 @@
       "@crm/eslint-config"
     ]
   },
-  "prettier": "@crm/prettier-config",
+  "prettier": "@crm/prettier",
   "devDependencies": {
     "@crm/eslint-config": "workspace:*",
     "@crm/prettier": "workspace:*",
