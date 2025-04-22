@@ -1,9 +1,17 @@
 import { Avatar, AvatarFallback, AvatarImage } from '@radix-ui/react-avatar';
-import { Check, ChevronsUpDown } from 'lucide-react';
+import { Check, ChevronsUpDown, PlusCircle } from 'lucide-react';
 import Link from 'next/link';
 
 import { getCurrentOrganization } from '@/auth/auth';
-import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from '@/components/ui/command';
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+  CommandSeparator,
+} from '@/components/ui/command';
 import { getUserOrganizations } from '@/http/organizations/get-user-organizations';
 import { cn } from '@/lib/utils';
 
@@ -23,7 +31,7 @@ export async function OrganizationSwitcher() {
           <>
             {currentOrganization ? (
               <>
-                <Avatar className="mr-2 overflow-hidden rounded-xs">
+                <Avatar className="mr-2 size-5 overflow-hidden rounded-xs">
                   {currentOrganization.avatarUrl && (
                     <AvatarImage
                       src={currentOrganization.avatarUrl}
@@ -49,9 +57,9 @@ export async function OrganizationSwitcher() {
             <CommandEmpty>Nenhuma organização encontrada.</CommandEmpty>
             <CommandGroup heading="Organizações">
               {organizations.map((organization) => (
-                <CommandItem key={organization.id} className="text-sm">
-                  <Link href={`/org/${organization.slug}`}>
-                    <Avatar className="mr-2 h-5 w-5">
+                <CommandItem key={organization.id} className="text-sm" asChild>
+                  <a href={`/org/${organization.slug}`}>
+                    <Avatar className="mr-2 h-5 w-5 overflow-hidden rounded-xs">
                       {organization.avatarUrl && (
                         <AvatarImage src={organization.avatarUrl} alt={organization.name} className="grayscale" />
                       )}
@@ -59,10 +67,21 @@ export async function OrganizationSwitcher() {
                     </Avatar>
                     {organization.name}
                     <Check className={cn('ml-auto', true ? 'opacity-100' : 'opacity-0')} />
-                  </Link>
+                  </a>
                 </CommandItem>
               ))}
             </CommandGroup>
+          </CommandList>
+          <CommandSeparator />
+          <CommandList>
+            <CommandItem asChild>
+              <Link href="/create-organization" passHref className="cursor-pointer">
+                <Button variant="ghost" className="flex w-full cursor-pointer items-center gap-2 hover:bg-transparent">
+                  <PlusCircle className="h-5 w-5" />
+                  Criar Organização
+                </Button>
+              </Link>
+            </CommandItem>
           </CommandList>
         </Command>
       </PopoverContent>

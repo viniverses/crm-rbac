@@ -5,17 +5,22 @@ import { Header } from '@/components/header/header';
 
 export default async function AppLayout({
   children,
+  sheet,
 }: Readonly<{
   children: React.ReactNode;
+  sheet: React.ReactNode;
 }>) {
   if (!isAuthenticated()) {
     redirect('/sign-in');
   }
 
   return (
-    <div>
-      <Header />
-      {children}
+    <div className="relative">
+      <div className="space-y-4">
+        <Header />
+        <main className="mx-auto w-full max-w-[1200px]">{children}</main>
+      </div>
+      {sheet}
     </div>
   );
 }

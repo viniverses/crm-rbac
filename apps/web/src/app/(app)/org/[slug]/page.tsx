@@ -1,3 +1,6 @@
+import { OrganizationForm } from '@/app/(app)/org/organization-form';
+import { getOrganization } from '@/http/organizations/get-organization';
+
 interface OrganizationPageProps {
   params: Promise<{
     slug: string;
@@ -7,5 +10,20 @@ interface OrganizationPageProps {
 export default async function OrganizationPage({ params }: OrganizationPageProps) {
   const { slug } = await params;
 
-  return <div>Organization Page {slug}</div>;
+  const { organization } = await getOrganization(slug);
+
+  return (
+    <div>
+      <div>Organization Page {slug}</div>
+      <OrganizationForm
+        defaultValues={{
+          name: organization.name,
+          domain: organization.domain,
+          shouldAttachUsersByDomain: organization.shouldAttachUsersByDomain,
+          avatarUrl: organization.avatarUrl ?? undefined,
+        }}
+        mode="edit"
+      />
+    </div>
+  );
 }

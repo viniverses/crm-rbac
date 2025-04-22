@@ -10,7 +10,7 @@ export async function Header() {
   return (
     <header className="bg-background/95 supports-[backdrop-filter]:bg-background/60 sticky top-0 z-50 w-full border-b backdrop-blur">
       <div className="flex items-center justify-center">
-        <div className="container flex h-16 max-w-4xl items-center justify-between">
+        <div className="container mx-auto flex h-16 w-full max-w-[1200px] items-center justify-between">
           <div className="flex items-center gap-2">
             <OrganizationSwitcher />
             {permissions?.can('get', 'Project') && <span>Projetos</span>}
