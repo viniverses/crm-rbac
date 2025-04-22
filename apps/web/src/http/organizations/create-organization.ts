@@ -24,6 +24,9 @@ export async function createOrganization({
       shouldAttachUsersByDomain,
       avatarUrl,
     },
+    next: {
+      tags: ['organizations'],
+    },
   });
 
   return response.json<CreateOrganizationResponse>();

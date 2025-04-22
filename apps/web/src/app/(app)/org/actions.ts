@@ -1,6 +1,7 @@
 'use server';
 
 import { HTTPError } from 'ky';
+import { revalidateTag } from 'next/cache';
 
 import { createOrganizationFormSchema } from '@/app/(app)/org/schema';
 import { getCurrentOrganization } from '@/auth/auth';
@@ -41,6 +42,8 @@ export async function createOrganizationAction(formData: FormData): Promise<Form
       shouldAttachUsersByDomain: shouldAttachUsersByDomain ?? false,
       avatarUrl: avatarUrl ?? null,
     });
+
+    revalidateTag('organizations');
 
     return {
       message: 'Organization created successfully',
@@ -97,6 +100,8 @@ export async function updateOrganizationAction(formData: FormData): Promise<Form
       shouldAttachUsersByDomain: shouldAttachUsersByDomain ?? false,
       avatarUrl: avatarUrl ?? null,
     });
+
+    revalidateTag('organizations');
 
     return {
       message: 'Organization updated successfully',

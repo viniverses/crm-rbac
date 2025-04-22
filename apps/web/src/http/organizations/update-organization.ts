@@ -24,5 +24,8 @@ export async function updateOrganization({
       shouldAttachUsersByDomain,
       avatarUrl,
     },
+    next: {
+      tags: ['organizations'],
+    },
   });
 }
