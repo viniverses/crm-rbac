@@ -1,7 +1,6 @@
 'use client';
 
 import { Loader2 } from 'lucide-react';
-import { useRouter } from 'next/navigation';
 import { useRef, useState } from 'react';
 import { toast } from 'sonner';
 
@@ -26,7 +25,6 @@ type OrganizationFormProps = {
 export function OrganizationForm({ defaultValues, mode = 'create' }: OrganizationFormProps) {
   const create = mode === 'create';
 
-  const router = useRouter();
   const formRef = useRef<HTMLFormElement>(null);
   const [isUploadingImage, setIsUploadingImage] = useState(false);
   const { form, formAction, state, isPending, handleSubmit } = useHybridForm<
@@ -40,11 +38,6 @@ export function OrganizationForm({ defaultValues, mode = 'create' }: Organizatio
       domain: null,
       shouldAttachUsersByDomain: false,
       avatarUrl: undefined,
-    },
-    onSuccess: (data) => {
-      if (create) {
-        router.push(`/org/${data?.organizationId}`);
-      }
     },
   });
 

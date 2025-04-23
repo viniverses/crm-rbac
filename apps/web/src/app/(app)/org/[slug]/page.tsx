@@ -1,5 +1,5 @@
-import { OrganizationForm } from '@/app/(app)/org/organization-form';
 import { ErrorMessage } from '@/components/error-message';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { getOrganization } from '@/http/organizations/get-organization';
 
 interface OrganizationPageProps {
@@ -20,19 +20,18 @@ export default async function OrganizationPage({ params }: OrganizationPageProps
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold">Configurações da Organização</h1>
-      </div>
-
-      <OrganizationForm
-        defaultValues={{
-          name: organization.name,
-          domain: organization.domain,
-          shouldAttachUsersByDomain: organization.shouldAttachUsersByDomain,
-          avatarUrl: organization.avatarUrl ?? undefined,
-        }}
-        mode="edit"
-      />
+      <Card>
+        <CardHeader>
+          <CardTitle>Configurações da Organização</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <p>Nome: {organization.name}</p>
+          <p>Slug: {organization.slug}</p>
+          <p>Avatar: {organization.avatarUrl}</p>
+          <p>Domínio: {organization.domain}</p>
+          <p>Deve anexar usuários por domínio: {organization.shouldAttachUsersByDomain ? 'Sim' : 'Não'}</p>
+        </CardContent>
+      </Card>
     </div>
   );
 }

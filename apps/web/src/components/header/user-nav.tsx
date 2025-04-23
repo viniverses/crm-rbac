@@ -19,12 +19,12 @@ export async function UserNav() {
     <div className="flex items-center gap-4">
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button variant="ghost">
-            <Avatar className="h-8 w-8">
-              <AvatarImage src={user.avatarUrl ?? undefined} alt={user.name} />
-              <AvatarFallback>{user.name.charAt(0)}</AvatarFallback>
+          <Button variant="outline" className="justify-start pr-4 pl-2">
+            <Avatar className="size-6 rounded-[4px]">
+              <AvatarImage src={user.avatarUrl ?? undefined} alt={user.name} className="rounded-[4px]" />
+              <AvatarFallback className="rounded-[4px] border">{user.name.charAt(0)}</AvatarFallback>
             </Avatar>
-            <span className="text-sm font-bold">{user.name}</span>
+            <span>{user.name}</span>
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent className="w-56" align="end">

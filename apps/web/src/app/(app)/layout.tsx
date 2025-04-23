@@ -18,9 +18,11 @@ export default async function AppLayout({
     <div className="relative">
       <div className="space-y-4">
         <Header />
-        <main className="mx-auto w-full max-w-[1200px]">{children}</main>
+        <main className="mx-auto w-full max-w-[1200px]">
+          {children}
+          {sheet}
+        </main>
       </div>
-      {sheet}
     </div>
   );
 }
