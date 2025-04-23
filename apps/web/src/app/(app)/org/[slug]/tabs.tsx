@@ -6,7 +6,7 @@ import { Users } from 'lucide-react';
 import { BarChart3 } from 'lucide-react';
 import { useParams } from 'next/navigation';
 
-import { RouteTabs } from '@/components/route-tabs';
+import { AnimatedTabs } from '@/components/animated-tabs';
 
 export function OrgTabs() {
   const { slug } = useParams<{ slug: string }>();
@@ -34,5 +34,5 @@ export function OrgTabs() {
     },
   ];
 
-  return <RouteTabs tabs={tabs} className="mb-8" />;
+  return <AnimatedTabs tabs={tabs} />;
 }

@@ -35,6 +35,8 @@ export async function getOrganization(app: FastifyInstance) {
                 role: roleSchema,
                 domain: z.string().nullable(),
                 shouldAttachUsersByDomain: z.boolean(),
+                createdAt: z.date(),
+                updatedAt: z.date(),
               }),
             }),
           },
@@ -54,6 +56,8 @@ export async function getOrganization(app: FastifyInstance) {
             role: members.role,
             domain: organizations.domain,
             shouldAttachUsersByDomain: organizations.shouldAttachUsersByDomain,
+            createdAt: organizations.createdAt,
+            updatedAt: organizations.updatedAt,
           })
           .from(organizations)
           .innerJoin(members, and(eq(organizations.id, members.organizationId), eq(members.userId, userId)))

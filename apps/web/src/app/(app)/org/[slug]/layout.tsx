@@ -4,7 +4,7 @@ export default async function OrgLayout({ children }: { children: React.ReactNod
   return (
     <div>
       <OrgTabs />
-      {children}
+      <div className="mt-6">{children}</div>
     </div>
   );
 }

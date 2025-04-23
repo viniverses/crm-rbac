@@ -5,7 +5,7 @@ import { api } from '@/http/api';
 import { handleApiError } from '../error-handler';
 import { APIResponse } from './../types';
 
-interface GetOrganizationResponse {
+export interface GetOrganizationResponse {
   organization: {
     id: string;
     name: string;
@@ -14,6 +14,8 @@ interface GetOrganizationResponse {
     role: Role;
     domain: string | null;
     shouldAttachUsersByDomain: boolean;
+    createdAt: Date;
+    updatedAt: Date;
   };
 }
 
