@@ -1,5 +1,3 @@
-import { AiWebBrowsingIcon } from '@hugeicons/core-free-icons';
-import { HugeiconsIcon } from '@hugeicons/react';
 import { Avatar, AvatarFallback, AvatarImage } from '@radix-ui/react-avatar';
 import { Building2, ChevronsUpDown, PlusCircle } from 'lucide-react';
 import Link from 'next/link';
