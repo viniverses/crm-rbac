@@ -85,6 +85,11 @@ app.register(fastifySwaggerUi, {
   routePrefix: '/docs/v1',
 });
 
+// Health check endpoint
+app.get('/health', async () => {
+  return { status: 'ok' };
+});
+
 app.register(fastifyJwt, {
   secret: 'my-jwt-secret',
 });
