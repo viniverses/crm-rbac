@@ -1,10 +1,16 @@
 {
   "extends": "@crm/typescript-config/node.json",
-  "include": ["src/**/*", "@types/*"],
+  "include": [
+    "src/**/*",
+    "@types/*"
+  ],
   "compilerOptions": {
     "baseUrl": ".",
+    "outDir": "./dist",
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": [
+        "./src/*"
+      ]
     }
   }
 }

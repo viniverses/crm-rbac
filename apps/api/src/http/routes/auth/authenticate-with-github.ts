@@ -88,7 +88,7 @@ export async function authenticateWithGithub(app: FastifyInstance) {
           .insert(users)
           .values({
             email,
-            name,
+            name: name ?? '',
             avatarUrl,
           })
           .returning();
