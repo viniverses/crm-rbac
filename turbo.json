@@ -3,15 +3,40 @@
   "ui": "tui",
   "tasks": {
     "build": {
-      "dependsOn": ["^build"],
-      "inputs": ["$TURBO_DEFAULT$", ".env*"],
-      "outputs": [".next/**", "!.next/cache/**"]
+      "dependsOn": [
+        "^build"
+      ],
+      "inputs": [
+        "$TURBO_DEFAULT$",
+        ".env*"
+      ],
+      "outputs": [
+        ".next/**",
+        "!.next/cache/**"
+      ],
+      "env": [
+        "DATABASE_URL",
+        "JWT_SECRET",
+        "GITHUB_CLIENT_ID",
+        "GITHUB_CLIENT_SECRET",
+        "GITHUB_OAUTH_CLIENT_REDIRECT_URI",
+        "NEXT_PUBLIC_API_URL",
+        "CLOUDFLARE_ENDPOINT",
+        "CLOUDFLARE_ACCESS_KEY_ID",
+        "CLOUDFLARE_SECRET_ACCESS_KEY",
+        "CLOUDFLARE_BUCKET",
+        "CLOUDFLARE_PUBLIC_URL"
+      ]
     },
     "lint": {
-      "dependsOn": ["^lint"]
+      "dependsOn": [
+        "^lint"
+      ]
     },
     "check-types": {
-      "dependsOn": ["^check-types"]
+      "dependsOn": [
+        "^check-types"
+      ]
     },
     "dev": {
       "cache": false,
