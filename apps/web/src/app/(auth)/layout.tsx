@@ -20,7 +20,7 @@ export default async function AuthLayout({
           <div className="bg-primary text-primary-foreground flex h-6 w-6 items-center justify-center rounded-md">
             <GalleryVerticalEnd className="size-4" />
           </div>
-          Acme Inc.
+          Synapse XRM
         </a>
         <Card>
           <CardHeader className="text-center">

@@ -1,6 +1,6 @@
 'use client';
 
-import { Settings } from 'lucide-react';
+import { Settings, Table2 } from 'lucide-react';
 import { FileText } from 'lucide-react';
 import { Users } from 'lucide-react';
 import { BarChart3 } from 'lucide-react';
@@ -21,6 +21,11 @@ export function OrgTabs() {
       href: `/org/${slug}/members`,
       label: 'Usuários',
       icon: <Users className="h-4 w-4" />,
+    },
+    {
+      href: `/org/${slug}/tables`,
+      label: 'Tabelas',
+      icon: <Table2 className="h-4 w-4" />,
     },
     {
       href: `/org/${slug}/reports`,

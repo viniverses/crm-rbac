@@ -68,11 +68,12 @@ const Tabs = ({ tabs }: { tabs: Tab[] }): React.ReactElement => {
               ref={(el) => {
                 buttonRefs[i] = el as HTMLButtonElement;
               }}
-              className={cn('block py-1', {
+              className={cn('flex items-center gap-x-2 py-1', {
                 'text-zinc-500': !isActive,
                 'font-semibold text-black dark:text-white': isActive,
               })}
             >
+              {item.icon}
               {item.label}
             </motion.span>
           </button>
@@ -83,7 +84,7 @@ const Tabs = ({ tabs }: { tabs: Tab[] }): React.ReactElement => {
         {hoveredRect && navRect && (
           <motion.div
             key="hover"
-            className="absolute top-0 left-0 z-10 rounded-md bg-zinc-100 dark:bg-zinc-800"
+            className="absolute top-0 left-0 z-10 rounded-md bg-black/5 dark:bg-zinc-800"
             initial={{ ...getHoverAnimationProps(hoveredRect, navRect), opacity: 0 }}
             animate={{ ...getHoverAnimationProps(hoveredRect, navRect), opacity: 1 }}
             exit={{ ...getHoverAnimationProps(hoveredRect, navRect), opacity: 0 }}

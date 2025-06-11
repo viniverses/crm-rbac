@@ -31,6 +31,7 @@ export async function createOrganizationAction(formData: FormData): Promise<Form
       };
     }
 
+    revalidateTag('organization');
     revalidateTag('organizations');
 
     return {
@@ -67,7 +68,7 @@ export async function updateOrganizationAction(formData: FormData): Promise<Form
       };
     }
 
-    revalidateTag('organizations');
+    revalidateTag('organization');
 
     return {
       success: true,

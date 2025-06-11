@@ -1,3 +1,5 @@
+'use server';
+
 import { defineAbilityFor } from '@crm/auth';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';

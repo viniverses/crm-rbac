@@ -1,14 +1,10 @@
-import {
-  AbilityBuilder,
-  CreateAbility,
-  createMongoAbility,
-  MongoAbility,
-} from '@casl/ability';
+import { AbilityBuilder, CreateAbility, createMongoAbility, MongoAbility } from '@casl/ability';
 import { z } from 'zod';
 
 import { User } from './models/user';
 import { permissions } from './permissions';
 import { billingSubject } from './subjects/billing';
+import { entitySubject } from './subjects/entity';
 import { inviteSubject } from './subjects/invite';
 import { organizationSubject } from './subjects/organization';
 import { projectSubject } from './subjects/project';
@@ -25,7 +21,7 @@ const appAbilitiesSchema = z.union([
   organizationSubject,
   inviteSubject,
   billingSubject,
-
+  entitySubject,
   z.tuple([z.literal('manage'), z.literal('all')]),
 ]);
 

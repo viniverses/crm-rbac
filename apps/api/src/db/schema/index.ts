@@ -1,4 +1,5 @@
 export * from './accounts';
+export * from './entities';
 export * from './files';
 export * from './invites';
 export * from './members';

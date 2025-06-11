@@ -35,7 +35,6 @@ export async function handleApiError(error: APIErrorResponse | unknown, messages
 
   if (error instanceof HTTPError) {
     const status = error.response.status;
-    const responseBody = await error.response.json();
 
     if (status === 401) {
       return createErrorResponse({
@@ -55,7 +54,7 @@ export async function handleApiError(error: APIErrorResponse | unknown, messages
     if (status === 400) {
       return createErrorResponse({
         code: 'BAD_REQUEST',
-        message: messages.httpError || responseBody.message || finalMessages.httpError!,
+        message: error.message,
       });
     }
 

@@ -14,6 +14,10 @@ import { getProfile } from './routes/auth/get-profile';
 import { requestPasswordRecover } from './routes/auth/request-password-recover';
 import { resetPassword } from './routes/auth/reset-password';
 import { getOrganizationBilling } from './routes/billing/get-organization-billing';
+import { createEntity } from './routes/entities/create-entity';
+import { getEntities } from './routes/entities/get-entities';
+import { getEntity } from './routes/entities/get-entity';
+import { updateEntity } from './routes/entities/update-entity';
 import { acceptInvite } from './routes/invites/accept-invite';
 import { createInvite } from './routes/invites/create-invite';
 import { getInvite } from './routes/invites/get-invite';
@@ -129,6 +133,12 @@ app.register(getOrganizationBilling);
 // Uploads
 app.register(getPreSignedUrl);
 app.register(getFile);
+
+// Entities
+app.register(createEntity);
+app.register(getEntity);
+app.register(updateEntity);
+app.register(getEntities);
 
 app.listen({ port: env.SERVER_PORT, host: '0.0.0.0' }).then((address) => {
   console.log(`🔥 HTTP server running at ${address}`);

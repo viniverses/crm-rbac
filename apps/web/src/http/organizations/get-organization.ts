@@ -21,7 +21,13 @@ export interface GetOrganizationResponse {
 
 export async function getOrganization(slug: string): Promise<APIResponse<GetOrganizationResponse>> {
   try {
-    const response = await api.get(`organizations/${slug}`).json<GetOrganizationResponse>();
+    const response = await api
+      .get(`organizations/${slug}`, {
+        next: {
+          tags: ['organization'],
+        },
+      })
+      .json<GetOrganizationResponse>();
 
     return {
       success: true,

@@ -30,7 +30,7 @@ export async function updateOrganization({
           avatarUrl,
         },
         next: {
-          tags: ['organizations'],
+          tags: ['organization'],
         },
       })
       .json<UpdateOrganizationResponse>();

@@ -11,9 +11,9 @@ export function OrganizationHeader({ organization }: GetOrganizationResponse) {
 
   return (
     <Card className="py-0">
-      <CardContent className="p-8">
+      <CardContent className="p-5">
         <div className="flex flex-col items-start gap-4 md:flex-row md:items-center">
-          <div className="bg-muted relative size-30 overflow-hidden rounded-md border">
+          <div className="bg-muted relative size-32 overflow-hidden rounded-md border">
             <Image
               src={organization.avatarUrl || '/placeholder.svg'}
               alt={`${organization.name} logo`}

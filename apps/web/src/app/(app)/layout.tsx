@@ -10,7 +10,7 @@ export default async function AppLayout({
   children: React.ReactNode;
   sheet: React.ReactNode;
 }>) {
-  if (!isAuthenticated()) {
+  if (!(await isAuthenticated())) {
     redirect('/sign-in');
   }
 
