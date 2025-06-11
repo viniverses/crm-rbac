@@ -140,6 +140,6 @@ app.register(getEntity);
 app.register(updateEntity);
 app.register(getEntities);
 
-app.listen({ port: env.SERVER_PORT, host: '0.0.0.0' }).then((address) => {
+app.listen({ port: env.PORT, host: '0.0.0.0' }).then((address) => {
   console.log(`🔥 HTTP server running at ${address}`);
 });
