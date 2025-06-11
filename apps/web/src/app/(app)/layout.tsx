@@ -15,14 +15,12 @@ export default async function AppLayout({
   }
 
   return (
-    <div className="relative">
-      <div className="space-y-4">
-        <Header />
-        <main className="mx-auto w-full max-w-[1200px]">
-          {children}
-          {sheet}
-        </main>
-      </div>
-    </div>
+    <>
+      <Header />
+      <main className="mx-auto w-full max-w-[1200px] py-4">
+        {children}
+        {sheet}
+      </main>
+    </>
   );
 }

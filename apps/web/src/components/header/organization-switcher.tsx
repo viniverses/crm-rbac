@@ -32,24 +32,20 @@ export async function OrganizationSwitcher() {
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <Button variant="outline" role="combobox" className="w-[230px] justify-between">
+        <Button variant="outline" role="combobox" className="w-52 justify-between">
           <>
             {currentOrganization ? (
               <>
-                <Avatar className="mr-2 size-5 overflow-hidden rounded-xs">
+                <Avatar className="size-5 overflow-hidden rounded-full">
                   {currentOrganization.avatarUrl && (
-                    <AvatarImage
-                      src={currentOrganization.avatarUrl}
-                      alt={currentOrganization.name}
-                      className="grayscale"
-                    />
+                    <AvatarImage src={currentOrganization.avatarUrl} alt={currentOrganization.name} />
                   )}
                   <AvatarFallback>{currentOrganization.name.slice(0, 2).toUpperCase()}</AvatarFallback>
                 </Avatar>
                 <span className="truncate text-sm">{currentOrganization.name}</span>
               </>
             ) : (
-              <span className="text-muted-foreground truncate text-sm">Selecione uma organização</span>
+              <span className="text-muted-foreground truncate text-sm">Organização</span>
             )}
             <ChevronsUpDown className="ml-auto opacity-50" />
           </>

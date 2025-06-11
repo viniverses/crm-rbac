@@ -6,6 +6,8 @@ import React, { JSX } from 'react';
 
 import { cn } from '@/lib/utils';
 
+import { Card } from './ui/card';
+
 interface Tab {
   label: string;
   href: string;
@@ -113,10 +115,8 @@ const Tabs = ({ tabs }: { tabs: Tab[] }): React.ReactElement => {
 
 export function AnimatedTabs({ tabs }: AnimatedTabsProps) {
   return (
-    <div className="w-full">
-      <div className="dark:border-dark-4 border-border relative flex w-full items-center justify-between overflow-x-auto overflow-y-hidden rounded-xl border bg-black/[0.02]">
-        <Tabs tabs={tabs} />
-      </div>
-    </div>
+    <Card className="items-start rounded-md p-0">
+      <Tabs tabs={tabs} />
+    </Card>
   );
 }

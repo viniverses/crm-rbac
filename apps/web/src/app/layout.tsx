@@ -8,8 +8,9 @@ import { Toaster } from '@/components/ui/sonner';
 import { Providers } from './providers';
 
 const dmSans = DM_Sans({
-  variable: '--font-dm-sans',
   subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-dm-sans',
 });
 
 export const metadata: Metadata = {
@@ -22,8 +23,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body className={`${dmSans.variable} antialiased`}>
+    <html lang="en" suppressHydrationWarning className={dmSans.variable}>
+      <body className="antialiased">
         <Providers>{children}</Providers>
         <Toaster richColors position="top-right" />
       </body>
