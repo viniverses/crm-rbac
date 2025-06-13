@@ -9,8 +9,6 @@ import { Separator } from '@/components/ui/separator';
 import { getEntities } from '@/http/entities/get-entities';
 import { getOrgUrl } from '@/lib/utils';
 
-import { TransitionLayout } from './transition-layout';
-
 export default async function TablesLayout({ children }: { children: React.ReactNode }) {
   const org = await getCurrentOrganization();
   const response = await getEntities({ org: org! });
