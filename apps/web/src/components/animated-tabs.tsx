@@ -59,26 +59,28 @@ const Tabs = ({ tabs }: { tabs: Tab[] }): React.ReactElement => {
         const isActive = pathname === item.href;
 
         return (
-          <button
-            key={item.href}
-            className="relative z-20 flex h-8 cursor-pointer items-center rounded-md bg-transparent px-4 text-sm transition-colors select-none"
-            onPointerEnter={() => setHoveredTabIndex(i)}
-            onFocus={() => setHoveredTabIndex(i)}
-            onClick={() => router.push(item.href)}
-          >
-            <motion.span
-              ref={(el) => {
-                buttonRefs[i] = el as HTMLButtonElement;
-              }}
-              className={cn('flex items-center gap-x-2 py-1', {
-                'text-zinc-500': !isActive,
-                'font-semibold text-black dark:text-white': isActive,
-              })}
+          <React.Fragment key={item.href}>
+            <button
+              className="relative z-20 flex h-8 cursor-pointer items-center rounded-md bg-transparent px-4 text-sm transition-colors select-none"
+              onPointerEnter={() => setHoveredTabIndex(i)}
+              onFocus={() => setHoveredTabIndex(i)}
+              onClick={() => router.push(item.href)}
             >
-              {item.icon}
-              {item.label}
-            </motion.span>
-          </button>
+              <motion.span
+                ref={(el) => {
+                  buttonRefs[i] = el as HTMLButtonElement;
+                }}
+                className={cn('flex items-center gap-x-2 py-1', {
+                  'text-zinc-500': !isActive,
+                  'font-semibold text-black dark:text-white': isActive,
+                })}
+              >
+                {item.icon}
+                {item.label}
+              </motion.span>
+            </button>
+            {i < tabs.length - 1 && <div className="h-4 w-[1px] bg-zinc-200 dark:bg-zinc-800" />}
+          </React.Fragment>
         );
       })}
 
@@ -115,8 +117,10 @@ const Tabs = ({ tabs }: { tabs: Tab[] }): React.ReactElement => {
 
 export function AnimatedTabs({ tabs }: AnimatedTabsProps) {
   return (
-    <Card className="items-start rounded-md p-0">
-      <Tabs tabs={tabs} />
+    <Card className="items-start rounded-md border-b border-none p-0 py-1">
+      <div className="mx-auto flex w-[1200px] items-start justify-start">
+        <Tabs tabs={tabs} />
+      </div>
     </Card>
   );
 }

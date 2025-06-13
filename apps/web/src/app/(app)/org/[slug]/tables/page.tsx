@@ -10,15 +10,19 @@ export default async function SchemaPage() {
 
   return (
     <div className="flex flex-1 flex-col items-center justify-center">
-      <Database strokeWidth={0.8} className="text-muted-foreground mb-2 h-10 w-10" />
-      <h3 className="text-lg font-medium">Nenhuma tabela selecionada</h3>
-      <p className="text-muted-foreground">Selecione uma tabela da lista ou crie uma nova para começar a editar</p>
-      <Link href={getOrgUrl(org!, 'tables/create')}>
-        <Button className="mt-4">
-          <Plus className="mr-1 h-4 w-4" />
-          Criar Nova Tabela
-        </Button>
-      </Link>
+      <div className="flex flex-col items-center justify-center">
+        <Database strokeWidth={0.8} className="text-muted-foreground mb-2 h-10 w-10" />
+        <h3 className="text-lg font-medium">Nenhuma tabela selecionada</h3>
+        <p className="text-muted-foreground text-sm">
+          Selecione uma tabela da lista ou crie uma nova para começar a editar
+        </p>
+        <Link href={getOrgUrl(org!, 'tables/create')}>
+          <Button className="mt-4">
+            <Plus className="mr-1 h-4 w-4" />
+            Criar nova tabela
+          </Button>
+        </Link>
+      </div>
     </div>
   );
 }

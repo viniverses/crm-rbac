@@ -25,14 +25,14 @@ interface TableListProps {
 
 export function TableList({ tables, orgSlug }: TableListProps) {
   return (
-    <ScrollArea className="h-[calc(100vh-300px)] rounded-md border p-2">
+    <ScrollArea className="bg-background h-[calc(100vh-400px)]">
       {tables.length === 0 ? (
-        <div className="flex h-[calc(100vh-300px)] flex-1 flex-col items-center justify-center p-4 text-center">
+        <div className="flex h-[calc(100vh-400px)] flex-1 flex-col items-center justify-center text-center">
           <Database className="text-muted-foreground mb-2 h-8 w-8" />
           <p className="text-muted-foreground text-sm">Nenhuma tabela criada</p>
         </div>
       ) : (
-        <div className="space-y-1.5 p-1">
+        <div className="space-y-1.5">
           {tables.map((table) => (
             <Link
               key={table.slug}

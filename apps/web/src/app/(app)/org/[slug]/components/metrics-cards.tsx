@@ -56,7 +56,6 @@ export function MetricsCards() {
         <CardContent>
           <div className="text-2xl font-bold">68%</div>
           <Progress value={68} className="mt-2 h-2" />
-          <p className="mt-2 text-xs text-gray-600">4.8TB de 7TB utilizados</p>
         </CardContent>
       </Card>
     </div>

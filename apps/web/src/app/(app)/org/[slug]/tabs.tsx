@@ -18,7 +18,7 @@ export function OrgTabs() {
       icon: <BarChart3 className="h-4 w-4" />,
     },
     {
-      href: `/org/${slug}/members`,
+      href: `/org/${slug}/users`,
       label: 'Usuários',
       icon: <Users className="h-4 w-4" />,
     },
