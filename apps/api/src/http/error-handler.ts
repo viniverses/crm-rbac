@@ -1,9 +1,7 @@
 import type { FastifyError, FastifyReply, FastifyRequest } from 'fastify';
 import { hasZodFastifySchemaValidationErrors, isResponseSerializationError } from 'fastify-type-provider-zod';
 
-import { BadRequestError } from './routes/errors/bad-request-error';
-import { NotFoundError } from './routes/errors/not-found-error';
-import { UnauthorizedError } from './routes/errors/unauthorized-error';
+import { HttpError } from './routes/errors/http-error';
 
 export const errorHandler = (error: FastifyError, req: FastifyRequest, reply: FastifyReply) => {
   if (hasZodFastifySchemaValidationErrors(error)) {
@@ -20,20 +18,8 @@ export const errorHandler = (error: FastifyError, req: FastifyRequest, reply: Fa
     });
   }
 
-  if (error instanceof BadRequestError) {
-    return reply.status(400).send({
-      message: error.message,
-    });
-  }
-
-  if (error instanceof UnauthorizedError) {
-    return reply.status(401).send({
-      message: error.message,
-    });
-  }
-
-  if (error instanceof NotFoundError) {
-    return reply.status(404).send({
+  if (error instanceof HttpError) {
+    return reply.status(error.statusCode).send({
       message: error.message,
     });
   }
