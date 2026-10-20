@@ -23,6 +23,9 @@ importers:
       '@crm/auth':
         specifier: workspace:*
         version: link:../../packages/auth
+      '@crm/cloudflare':
+        specifier: workspace:*
+        version: link:../../packages/cloudflare
       '@crm/db':
         specifier: workspace:*
         version: link:../../packages/db
@@ -340,6 +343,25 @@ importers:
       zod:
         specifier: ^3.24.2
         version: 3.24.2
+    devDependencies:
+      '@crm/eslint-config':
+        specifier: workspace:*
+        version: link:../../config/eslint-config
+      '@crm/prettier':
+        specifier: workspace:*
+        version: link:../../config/prettier
+      '@crm/typescript-config':
+        specifier: workspace:*
+        version: link:../../config/typescript-config
+
+  packages/cloudflare:
+    dependencies:
+      '@aws-sdk/client-s3':
+        specifier: ^3.787.0
+        version: 3.787.0
+      '@crm/env':
+        specifier: workspace:*
+        version: link:../env
     devDependencies:
       '@crm/eslint-config':
         specifier: workspace:*

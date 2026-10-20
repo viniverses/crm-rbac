@@ -19,6 +19,7 @@
     "@aws-sdk/client-s3": "^3.787.0",
     "@aws-sdk/s3-request-presigner": "^3.787.0",
     "@crm/auth": "workspace:*",
+    "@crm/cloudflare": "workspace:*",
     "@crm/db": "workspace:*",
     "@crm/env": "workspace:*",
     "@fastify/cors": "^11.0.1",

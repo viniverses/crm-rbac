@@ -2,13 +2,13 @@ import { randomUUID } from 'node:crypto';
 
 import { PutObjectCommand } from '@aws-sdk/client-s3';
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
+import { s3Client } from '@crm/cloudflare/s3';
 import { db, files } from '@crm/db';
 import { env } from '@crm/env';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import z from 'zod';
 
-import { s3Client } from '@/http/lib/cloudflare';
 import { auth } from '@/middlewares/auth';
 
 export async function getPreSignedUrl(app: FastifyInstance) {

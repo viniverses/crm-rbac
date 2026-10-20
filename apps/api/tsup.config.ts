@@ -5,5 +5,5 @@ export default defineConfig({
   splitting: false,
   sourcemap: true,
   clean: true,
-  noExternal: ['@crm/env', '@crm/auth', '@crm/db'],
+  noExternal: ['@crm/env', '@crm/auth', '@crm/cloudflare', '@crm/db'],
 });
