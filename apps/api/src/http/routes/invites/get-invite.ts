@@ -1,11 +1,9 @@
 import { roleSchema } from '@crm/auth';
+import { db, invites, organizations, users } from '@crm/db';
 import { eq } from 'drizzle-orm';
 import { FastifyInstance } from 'fastify';
 import { ZodTypeProvider } from 'fastify-type-provider-zod';
 import z from 'zod';
-
-import { db } from '@/db/drizzle';
-import { invites, organizations, users } from '@/db/schema';
 
 import { NotFoundError } from '../errors/not-found-error';
 

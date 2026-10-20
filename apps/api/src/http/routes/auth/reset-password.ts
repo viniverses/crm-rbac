@@ -1,15 +1,12 @@
+import { db, tokens, users } from '@crm/db';
 import { hash } from 'bcryptjs';
 import { eq } from 'drizzle-orm';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import z from 'zod';
 
-import { db } from '@/db/drizzle';
-import { users } from '@/db/schema';
-
 import { BadRequestError } from '../errors/bad-request-error';
 import { UnauthorizedError } from '../errors/unauthorized-error';
-import { tokens } from './../../../db/schema/tokens';
 
 export async function resetPassword(app: FastifyInstance) {
   app.withTypeProvider<ZodTypeProvider>().post(

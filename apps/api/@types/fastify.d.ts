@@ -1,6 +1,6 @@
 import 'fastify';
 
-import { Member, Organization } from '@/db/schema';
+import { Member, Organization } from '@crm/db';
 
 declare module 'fastify' {
   export interface FastifyRequest {

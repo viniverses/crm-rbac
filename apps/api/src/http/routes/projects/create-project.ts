@@ -1,9 +1,8 @@
+import { db, projects } from '@crm/db';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import { z } from 'zod';
 
-import { db } from '@/db/drizzle';
-import { projects } from '@/db/schema';
 import { auth } from '@/middlewares/auth';
 import { createSlug } from '@/utils/create-slug';
 import { getUserPermissions } from '@/utils/get-user-permissions';

@@ -1,11 +1,10 @@
 import { roleSchema } from '@crm/auth';
+import { db, members } from '@crm/db';
 import { and, eq } from 'drizzle-orm';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import { z } from 'zod';
 
-import { db } from '@/db/drizzle';
-import { members } from '@/db/schema';
 import { auth } from '@/middlewares/auth';
 import { getUserPermissions } from '@/utils/get-user-permissions';
 

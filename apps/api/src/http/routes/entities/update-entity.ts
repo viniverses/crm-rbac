@@ -1,10 +1,9 @@
+import { db, entities } from '@crm/db';
 import { and, eq } from 'drizzle-orm';
 import { FastifyInstance } from 'fastify';
 import { ZodTypeProvider } from 'fastify-type-provider-zod';
 import z from 'zod';
 
-import { db } from '@/db/drizzle';
-import { entities } from '@/db/schema/entities';
 import { auth } from '@/middlewares/auth';
 import { getUserPermissions } from '@/utils/get-user-permissions';
 

@@ -1,11 +1,9 @@
+import { db, users } from '@crm/db';
 import { compare } from 'bcryptjs';
 import { eq } from 'drizzle-orm';
 import { FastifyInstance } from 'fastify';
 import { ZodTypeProvider } from 'fastify-type-provider-zod';
 import z from 'zod';
-
-import { db } from '@/db/drizzle';
-import { users } from '@/db/schema';
 
 import { BadRequestError } from '../errors/bad-request-error';
 

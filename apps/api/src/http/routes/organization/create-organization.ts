@@ -1,10 +1,9 @@
+import { db, members, organizations } from '@crm/db';
 import { eq } from 'drizzle-orm';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import z from 'zod';
 
-import { db } from '@/db/drizzle';
-import { members, organizations } from '@/db/schema';
 import { auth } from '@/middlewares/auth';
 import { createSlug } from '@/utils/create-slug';
 

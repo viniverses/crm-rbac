@@ -1,13 +1,12 @@
 import { GetObjectCommand } from '@aws-sdk/client-s3';
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner';
+import { db, files } from '@crm/db';
 import { env } from '@crm/env';
 import { eq } from 'drizzle-orm';
 import type { FastifyInstance } from 'fastify';
 import type { ZodTypeProvider } from 'fastify-type-provider-zod';
 import z from 'zod';
 
-import { db } from '@/db/drizzle';
-import { files } from '@/db/schema';
 import { s3Client } from '@/http/lib/cloudflare';
 import { auth } from '@/middlewares/auth';
 

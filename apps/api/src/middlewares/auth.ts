@@ -1,9 +1,8 @@
+import { db, members, organizations } from '@crm/db';
 import { and, eq } from 'drizzle-orm';
 import { FastifyInstance } from 'fastify';
 import { fastifyPlugin } from 'fastify-plugin';
 
-import { db } from '@/db/drizzle';
-import { members, organizations } from '@/db/schema';
 import { UnauthorizedError } from '@/http/routes/errors/unauthorized-error';
 
 export const auth = fastifyPlugin(async (app: FastifyInstance) => {

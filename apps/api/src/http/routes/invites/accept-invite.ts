@@ -1,10 +1,9 @@
+import { db, invites, members, users } from '@crm/db';
 import { eq } from 'drizzle-orm';
 import { FastifyInstance } from 'fastify';
 import { ZodTypeProvider } from 'fastify-type-provider-zod';
 import z from 'zod';
 
-import { db } from '@/db/drizzle';
-import { invites, members, users } from '@/db/schema';
 import { auth } from '@/middlewares/auth';
 
 import { BadRequestError } from '../errors/bad-request-error';

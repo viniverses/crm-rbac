@@ -1,10 +1,9 @@
+import { db, invites } from '@crm/db';
 import { and, eq } from 'drizzle-orm';
 import { FastifyInstance } from 'fastify';
 import { ZodTypeProvider } from 'fastify-type-provider-zod';
 import z from 'zod';
 
-import { db } from '@/db/drizzle';
-import { invites } from '@/db/schema';
 import { auth } from '@/middlewares/auth';
 import { getUserPermissions } from '@/utils/get-user-permissions';
 
