@@ -2,9 +2,8 @@
   "name": "@crm/typescript-config",
   "version": "0.0.0",
   "private": true,
-  "license": "MIT",
-  "files": [
-    "library.json",
-    "node.json"
-  ]
+  "license": "PROPRIETARY",
+  "publishConfig": {
+    "access": "public"
+  }
 }

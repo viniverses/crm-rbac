@@ -1,10 +1,11 @@
 {
-  "extends": "@crm/typescript-config/node.json",
+  "extends": "@crm/typescript-config/base.json",
   "include": [
     "src/**/*",
     "@types/*"
   ],
   "compilerOptions": {
+    "noUncheckedIndexedAccess": false,
     "paths": {
       "@/*": [
         "./src/*"

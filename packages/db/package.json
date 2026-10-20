@@ -33,12 +33,10 @@
     "chalk": "4.1.2",
     "dotenv-cli": "^8.0.0",
     "drizzle-kit": "^0.31.0",
+    "eslint": "^10",
     "tsup": "^8.5.0",
     "tsx": "^4.19.3",
     "typescript": "^5.8.3"
   },
-  "prettier": "@crm/prettier",
-  "eslintConfig": {
-    "extends": ["@crm/eslint-config/node"]
-  }
+  "prettier": "@crm/prettier"
 }

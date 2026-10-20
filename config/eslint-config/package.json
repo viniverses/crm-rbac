@@ -1,35 +1,24 @@
 {
   "name": "@crm/eslint-config",
   "version": "0.0.0",
+  "type": "module",
   "private": true,
-  "files": [
-    "library.js",
-    "next.js",
-    "node.js"
-  ],
-  "prettier": "@crm/prettier",
-  "eslintConfig": {
-    "extends": [
-      "./library.js"
-    ]
-  },
-  "dependencies": {
-    "@typescript-eslint/eslint-plugin": "^6.21.0",
-    "@typescript-eslint/parser": "^6.21.0",
-    "eslint": "^8.57.1",
-    "eslint-config-prettier": "^9.1.0",
-    "eslint-config-standard": "^17.1.0",
-    "eslint-plugin-import": "^2.31.0",
-    "eslint-plugin-jsx-a11y": "^6.10.2",
-    "eslint-plugin-n": "^16.6.2",
-    "eslint-plugin-prettier": "^5.2.6",
-    "eslint-plugin-promise": "^6.6.0",
-    "eslint-plugin-react": "^7.37.5",
-    "eslint-plugin-react-hooks": "^4.6.2",
-    "prettier": "^3.5.3"
+  "exports": {
+    "./base": "./base.js",
+    "./next-js": "./next.js",
+    "./react-internal": "./react-internal.js"
   },
   "devDependencies": {
-    "@crm/prettier": "workspace:*",
-    "eslint-plugin-simple-import-sort": "^12.1.1"
+    "@babel/core": "^8.0.7",
+    "@babel/eslint-parser": "^8.0.7",
+    "@babel/preset-typescript": "^8.0.7",
+    "@eslint/js": "^10",
+    "@next/eslint-plugin-next": "^16.4.0",
+    "eslint": "^10",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-only-warn": "^1.2.1",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "eslint-plugin-turbo": "^2.11.7",
+    "globals": "^17.13.0"
   }
 }
