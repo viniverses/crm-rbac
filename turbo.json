@@ -18,6 +18,7 @@
       ],
       "env": [
         "DATABASE_URL",
+        "NODE_ENV",
         "JWT_SECRET",
         "GITHUB_CLIENT_ID",
         "GITHUB_CLIENT_SECRET",

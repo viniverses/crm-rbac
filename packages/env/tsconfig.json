@@ -2,5 +2,10 @@
   "extends": "@crm/typescript-config/library.json",
   "include": [
     "index.ts"
-  ]
+  ],
+  "compilerOptions": {
+    "types": [
+      "node"
+    ]
+  }
 }

@@ -35,5 +35,6 @@ export const env = createEnv({
     CLOUDFLARE_BUCKET: process.env.CLOUDFLARE_BUCKET,
     CLOUDFLARE_PUBLIC_URL: process.env.CLOUDFLARE_PUBLIC_URL,
   },
+  skipValidation: process.env.NODE_ENV === 'production',
   emptyStringAsUndefined: true,
 });
