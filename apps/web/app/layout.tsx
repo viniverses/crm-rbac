@@ -36,10 +36,11 @@ export default function RootLayout({
         inter.variable
       )}
     >
-      <body>
+      <body className="h-svh overflow-hidden">
         <ThemeProvider>
           <TooltipProvider>
             <SidebarProvider
+              className="h-svh overflow-hidden"
               style={
                 {
                   "--sidebar-width": "15rem",
@@ -55,7 +56,7 @@ export default function RootLayout({
                     Deals Pipeline
                   </span>
                 </header>
-                <div className="flex flex-1 flex-col">{children}</div>
+                <div className="flex min-h-0 flex-1 flex-col overflow-y-auto">{children}</div>
               </SidebarInset>
             </SidebarProvider>
           </TooltipProvider>
