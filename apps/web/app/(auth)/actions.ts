@@ -4,6 +4,7 @@ import { env } from '@crm/env';
 import { isAxiosError } from 'axios';
 import { redirect } from 'next/navigation';
 
+import { createGithubOAuthState } from '@/auth/github-oauth-state';
 import { setAuthToken } from '@/auth/session';
 import { createUser } from '@/services/auth/create-user';
 import { signInWithPassword } from '@/services/auth/sign-in-with-password';
@@ -13,10 +14,12 @@ import { type SignUpForm, signUpFormSchema } from './sign-up/schema';
 
 export async function signInWithGithub() {
   const githubAuthUrl = new URL('login/oauth/authorize', 'https://github.com');
+  const state = await createGithubOAuthState();
 
   githubAuthUrl.searchParams.set('client_id', env.GITHUB_CLIENT_ID);
   githubAuthUrl.searchParams.set('redirect_uri', env.GITHUB_OAUTH_CLIENT_REDIRECT_URI);
   githubAuthUrl.searchParams.set('scope', 'user');
+  githubAuthUrl.searchParams.set('state', state);
 
   redirect(githubAuthUrl.toString());
 }
