@@ -30,6 +30,7 @@ import { useForm, useWatch } from 'react-hook-form';
 import { toast } from 'sonner';
 
 import { createOrganization } from '@/app/(app)/actions';
+import { useInterceptedSheetClose } from '@/components/intercepted-sheet-content';
 
 import { organizationFormSchema, type OrganizationFormValues } from './schema';
 
@@ -43,6 +44,7 @@ interface OrganizationFormProps {
 
 export function OrganizationForm({ showCancel = false, defaultValues }: OrganizationFormProps) {
   const router = useRouter();
+  const closeSheet = useInterceptedSheetClose();
   const fileInputRef = React.useRef<HTMLInputElement>(null);
   const [avatarFile, setAvatarFile] = React.useState<File | null>(null);
   const [errorMessage, setErrorMessage] = React.useState<string | null>(null);
@@ -153,11 +155,16 @@ export function OrganizationForm({ showCancel = false, defaultValues }: Organiza
 
     toast.success('Organization created successfully.');
     if (showCancel) {
-      router.back();
+      if (closeSheet) {
+        closeSheet(true);
+      } else {
+        router.back();
+        router.refresh();
+      }
     } else {
       router.push('/');
+      router.refresh();
     }
-    router.refresh();
   };
 
   return (
@@ -356,7 +363,7 @@ export function OrganizationForm({ showCancel = false, defaultValues }: Organiza
               type="button"
               variant="ghost"
               size="lg"
-              onClick={() => router.back()}
+              onClick={() => (closeSheet ? closeSheet() : router.back())}
               disabled={form.formState.isSubmitting}
               className="text-muted-foreground hover:text-foreground rounded-lg px-3 text-xs font-medium enabled:active:scale-[0.96] motion-safe:transition-[scale,background-color,color] motion-safe:duration-150 motion-safe:ease-out"
             >

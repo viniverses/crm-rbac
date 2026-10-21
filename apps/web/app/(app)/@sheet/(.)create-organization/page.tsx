@@ -11,7 +11,7 @@ import { OrganizationForm } from '@/components/organization/organization-form';
 
 export default function CreateOrganizationSheetPage() {
   return (
-    <InterceptedSheetContent className="flex flex-col p-0 sm:max-w-md">
+    <InterceptedSheetContent className="data-[side=right]:motion-safe:data-starting-style:translate-x-[calc(100%+0.5rem)] data-[side=right]:motion-safe:data-ending-style:translate-x-[calc(100%+0.5rem)] flex flex-col p-0 motion-safe:transition-[translate,opacity] motion-safe:duration-300 sm:max-w-md">
       <SheetHeader className="flex flex-row items-center gap-3 border-b px-5 py-4">
         <div className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-indigo-600 text-white shadow-xs outline-1 -outline-offset-1 outline-white/15">
           <HugeiconsIcon
