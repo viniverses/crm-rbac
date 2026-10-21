@@ -21,25 +21,18 @@ import {
 import type {
   SidebarNavGroup,
   SidebarNavItem,
-  SidebarUser,
   TeamItem,
 } from './types';
 
 export const sidebarData = {
-  user: {
-    name: 'John Doe',
-    email: 'm@acme.studio',
-    avatar: '',
-    role: 'Admin',
-  } satisfies SidebarUser,
   teams: [
     {
-      name: 'Acme Studio',
+      name: 'Synapse Demo',
       logo: Tag01Icon,
       plan: 'Enterprise Workspace',
     },
     {
-      name: 'Acme Corp.',
+      name: 'Northstar Labs',
       logo: AiWebBrowsingIcon,
       plan: 'Startup Workspace',
     },

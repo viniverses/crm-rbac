@@ -1,7 +1,7 @@
 import type { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
-  transpilePackages: ['@crm/ui'],
+  transpilePackages: ['@crm/ui', '@crm/auth', '@crm/env'],
 };
 
 export default nextConfig;

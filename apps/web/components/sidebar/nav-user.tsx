@@ -38,9 +38,10 @@ import {
 import { HugeiconsIcon } from '@hugeicons/react';
 import { useTheme } from 'next-themes';
 
-import type { SidebarUser } from './types';
+import { signOut } from '@/app/(app)/actions';
+import type { GetProfileResponse } from '@/services/auth/get-profile';
 
-export function NavUser({ user }: { user: SidebarUser }) {
+export function NavUser({ user }: { user: GetProfileResponse['user'] }) {
   const { isMobile } = useSidebar();
   const { setTheme } = useTheme();
   const initials = user.name
@@ -63,7 +64,7 @@ export function NavUser({ user }: { user: SidebarUser }) {
             }
           >
             <Avatar className="size-7 rounded-full outline-1 -outline-offset-1 outline-black/10 dark:outline-white/10">
-              <AvatarImage src={user.avatar} alt={user.name} />
+              <AvatarImage src={user.avatarUrl ?? undefined} alt={user.name} />
               <AvatarFallback className="rounded-full bg-indigo-500/15 text-[11px] font-semibold text-indigo-600 dark:bg-indigo-500/25 dark:text-indigo-300">
                 {initials}
               </AvatarFallback>
@@ -74,11 +75,6 @@ export function NavUser({ user }: { user: SidebarUser }) {
                 <span className="truncate text-xs font-semibold text-sidebar-foreground">
                   {user.name}
                 </span>
-                {user.role && (
-                  <span className="inline-flex items-center rounded-sm bg-indigo-500/12 px-1.5 py-px text-[10px] font-semibold text-indigo-600 dark:bg-indigo-500/20 dark:text-indigo-300">
-                    {user.role}
-                  </span>
-                )}
               </div>
               <span className="truncate text-[11px] text-muted-foreground">
                 {user.email}
@@ -100,7 +96,7 @@ export function NavUser({ user }: { user: SidebarUser }) {
               <DropdownMenuLabel className="p-0 font-normal">
                 <div className="flex items-center gap-2.5 px-2 py-1.5 text-left text-xs">
                   <Avatar className="size-8 rounded-full outline-1 -outline-offset-1 outline-black/10 dark:outline-white/10">
-                    <AvatarImage src={user.avatar} alt={user.name} />
+                    <AvatarImage src={user.avatarUrl ?? undefined} alt={user.name} />
                     <AvatarFallback className="rounded-full bg-indigo-500/15 text-xs font-semibold text-indigo-600 dark:bg-indigo-500/25 dark:text-indigo-300">
                       {initials}
                     </AvatarFallback>
@@ -156,7 +152,12 @@ export function NavUser({ user }: { user: SidebarUser }) {
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
-              <DropdownMenuItem variant="destructive">
+              <DropdownMenuItem
+                variant="destructive"
+                onClick={async () => {
+                  await signOut();
+                }}
+              >
                 <HugeiconsIcon icon={Logout01Icon} strokeWidth={1.75} />
                 Log out
               </DropdownMenuItem>

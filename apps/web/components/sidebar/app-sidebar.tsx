@@ -9,6 +9,8 @@ import {
 } from '@crm/ui/components/sidebar';
 import * as React from 'react';
 
+import type { GetProfileResponse } from '@/services/auth/get-profile';
+
 import { sidebarData } from './data';
 import { NavGroup } from './nav-group';
 import { NavItem } from './nav-item';
@@ -16,7 +18,12 @@ import { NavUser } from './nav-user';
 import { SidebarSearch } from './sidebar-search';
 import { TeamSwitcher } from './team-switcher';
 
-export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+export function AppSidebar({
+  user,
+  ...props
+}: React.ComponentProps<typeof Sidebar> & {
+  user: GetProfileResponse['user'];
+}) {
   const [activeItem, setActiveItem] = React.useState('Deals Pipeline');
   const [searchQuery, setSearchQuery] = React.useState('');
 
@@ -68,7 +75,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       </SidebarContent>
 
       <SidebarFooter className="px-2 pb-2 group-data-[collapsible=icon]:items-center group-data-[collapsible=icon]:px-0">
-        <NavUser user={sidebarData.user} />
+        <NavUser user={user} />
       </SidebarFooter>
 
       <SidebarRail />

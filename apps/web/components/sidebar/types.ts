@@ -1,12 +1,5 @@
 import type { IconSvgElement } from '@hugeicons/react';
 
-export type SidebarUser = {
-  name: string;
-  email: string;
-  avatar: string;
-  role?: string;
-};
-
 export type TeamItem = {
   name: string;
   logo: IconSvgElement;

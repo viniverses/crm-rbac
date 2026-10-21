@@ -1,9 +1,11 @@
-import { Button as ButtonPrimitive } from '@base-ui/react/button';
-import { cva, type VariantProps } from 'class-variance-authority';
-import { cn } from 'cn';
+import { Button as ButtonPrimitive } from '@base-ui/react/button'
+import { cva, type VariantProps } from 'class-variance-authority'
+import { cn } from 'cn'
+
+const tapScale = 'motion-safe:enabled:active:scale-[0.96]'
 
 const buttonVariants = cva(
-  "group/button focus-visible:border-ring focus-visible:ring-ring/30 active:not-aria-[haspopup]:translate-y-px aria-invalid:border-destructive aria-invalid:ring-2 aria-invalid:ring-destructive/20 dark:aria-invalid:border-destructive/50 dark:aria-invalid:ring-destructive/40 inline-flex shrink-0 select-none items-center justify-center whitespace-nowrap rounded-md border border-transparent bg-clip-padding text-xs/relaxed font-medium outline-none transition-all focus-visible:ring-2 disabled:pointer-events-none disabled:opacity-50 [&_svg:not([class*='size-'])]:size-4 [&_svg]:pointer-events-none [&_svg]:shrink-0",
+  "group/button focus-visible:border-ring focus-visible:ring-ring/30 aria-invalid:border-destructive aria-invalid:ring-2 aria-invalid:ring-destructive/20 dark:aria-invalid:border-destructive/50 dark:aria-invalid:ring-destructive/40 inline-flex shrink-0 select-none items-center justify-center whitespace-nowrap rounded-md border border-transparent bg-clip-padding text-xs/relaxed font-medium outline-none transition-[background-color,color,border-color,box-shadow,scale,opacity] duration-150 ease-out focus-visible:ring-2 disabled:pointer-events-none disabled:opacity-50 [&_svg:not([class*='size-'])]:size-4 [&_svg]:pointer-events-none [&_svg]:shrink-0",
   {
     variants: {
       variant: {
@@ -34,16 +36,30 @@ const buttonVariants = cva(
       variant: 'default',
       size: 'default',
     },
-  },
-);
+  }
+)
 
 function Button({
   className,
   variant = 'default',
   size = 'default',
+  static: isStatic = false,
   ...props
-}: ButtonPrimitive.Props & VariantProps<typeof buttonVariants>) {
-  return <ButtonPrimitive data-slot="button" className={cn(buttonVariants({ variant, size, className }))} {...props} />;
+}: ButtonPrimitive.Props &
+  VariantProps<typeof buttonVariants> & {
+    static?: boolean
+  }) {
+  return (
+    <ButtonPrimitive
+      data-slot="button"
+      className={cn(
+        buttonVariants({ variant, size }),
+        !isStatic && variant !== 'link' && tapScale,
+        className
+      )}
+      {...props}
+    />
+  )
 }
 
-export { Button, buttonVariants };
+export { Button, buttonVariants }
