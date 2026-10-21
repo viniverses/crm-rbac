@@ -30,6 +30,7 @@ export async function createOrganization(app: FastifyInstance) {
           response: {
             201: z.object({
               organizationId: z.string(),
+              slug: z.string(),
             }),
           },
         },
@@ -50,7 +51,7 @@ export async function createOrganization(app: FastifyInstance) {
         }
 
         try {
-          await db.transaction(async (tx) => {
+          const organization = await db.transaction(async (tx) => {
             const [organization] = await tx
               .insert(organizations)
               .values({
@@ -69,9 +70,12 @@ export async function createOrganization(app: FastifyInstance) {
               role: 'ADMIN',
             });
 
-            return reply.status(201).send({
-              organizationId: organization.id,
-            });
+            return organization;
+          });
+
+          return reply.status(201).send({
+            organizationId: organization.id,
+            slug: organization.slug,
           });
         } catch (error) {
           throw new BadRequestError('Failed to create organization');
