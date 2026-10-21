@@ -83,6 +83,7 @@ export async function selectOrganization(slug: string) {
 
 export async function signOut() {
   await clearAuthToken();
+  (await cookies()).delete('@crm-organization');
 
   redirect('/sign-in');
 }
