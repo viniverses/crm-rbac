@@ -18,6 +18,7 @@
       ],
       "env": [
         "DATABASE_URL",
+        "ADMIN_DATABASE_URL",
         "NODE_ENV",
         "JWT_SECRET",
         "GITHUB_CLIENT_ID",
@@ -43,7 +44,8 @@
     },
     "dev": {
       "cache": false,
-      "persistent": true
+      "persistent": true,
+      "env": ["PORT"]
     }
   }
 }
