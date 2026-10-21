@@ -29,8 +29,7 @@ export function TeamSwitcher({
 }) {
   const router = useRouter();
   const { isMobile } = useSidebar();
-  const activeTeam =
-    organizations.find((organization) => organization.slug === currentOrganization) ?? organizations[0];
+  const activeTeam = organizations.find((organization) => organization.slug === currentOrganization);
 
   const handleSelect = async (slug: string) => {
     if (slug === currentOrganization) return;
