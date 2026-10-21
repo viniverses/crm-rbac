@@ -18,6 +18,7 @@ import {
 } from '@crm/ui/components/sidebar';
 import { ArrowUpDownIcon, PlusSignIcon } from '@hugeicons/core-free-icons';
 import { HugeiconsIcon } from '@hugeicons/react';
+import Link from 'next/link';
 import * as React from 'react';
 
 import type { TeamItem } from './types';
@@ -92,7 +93,10 @@ export function TeamSwitcher({ teams }: { teams: TeamItem[] }) {
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
-              <DropdownMenuItem className="gap-2.5 rounded-lg p-2">
+              <DropdownMenuItem
+                render={<Link href="/create-organization" />}
+                className="cursor-pointer gap-2.5 rounded-lg p-2"
+              >
                 <div className="flex size-7 items-center justify-center rounded-md border bg-background">
                   <HugeiconsIcon icon={PlusSignIcon} strokeWidth={2} className="size-3.5" />
                 </div>

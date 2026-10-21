@@ -12,8 +12,10 @@ import { ThemeSwitcher } from '@/components/theme-switcher';
 
 export default async function AppLayout({
   children,
+  sheet,
 }: Readonly<{
   children: React.ReactNode;
+  sheet: React.ReactNode;
 }>) {
   const profile = await getCurrentUser();
 
@@ -44,6 +46,7 @@ export default async function AppLayout({
         </header>
         <div className="flex min-h-0 flex-1 flex-col overflow-y-auto">
           {children}
+          {sheet}
         </div>
       </SidebarInset>
     </SidebarProvider>
