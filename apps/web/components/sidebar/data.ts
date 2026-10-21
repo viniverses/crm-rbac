@@ -1,10 +1,8 @@
 import {
-  AiWebBrowsingIcon,
   Analytics01Icon,
   Building02Icon,
   Calendar03Icon,
   Call02Icon,
-  CommandIcon,
   Contact01Icon,
   DatabaseIcon,
   Home01Icon,
@@ -12,36 +10,14 @@ import {
   KanbanIcon,
   Mail01Icon,
   Settings01Icon,
-  Tag01Icon,
   Target02Icon,
   Task01Icon,
   UserGroupIcon,
 } from '@hugeicons/core-free-icons';
 
-import type {
-  SidebarNavGroup,
-  SidebarNavItem,
-  TeamItem,
-} from './types';
+import type { SidebarNavGroup, SidebarNavItem } from './types';
 
 export const sidebarData = {
-  teams: [
-    {
-      name: 'Synapse Demo',
-      logo: Tag01Icon,
-      plan: 'Enterprise Workspace',
-    },
-    {
-      name: 'Northstar Labs',
-      logo: AiWebBrowsingIcon,
-      plan: 'Startup Workspace',
-    },
-    {
-      name: 'Evil Corp.',
-      logo: CommandIcon,
-      plan: 'Free Workspace',
-    },
-  ] satisfies TeamItem[],
   navItems: [
     {
       title: 'Dashboard',

@@ -1,11 +1,5 @@
 import type { IconSvgElement } from '@hugeicons/react';
 
-export type TeamItem = {
-  name: string;
-  logo: IconSvgElement;
-  plan: string;
-};
-
 export type SidebarNavItem = {
   title: string;
   url: string;
