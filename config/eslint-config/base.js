@@ -3,6 +3,7 @@ import babelParser from "@babel/eslint-parser"
 import js from "@eslint/js"
 import eslintConfigPrettier from "eslint-config-prettier"
 import onlyWarn from "eslint-plugin-only-warn"
+import simpleImportSort from "eslint-plugin-simple-import-sort"
 import turboPlugin from "eslint-plugin-turbo"
 
 const require = createRequire(import.meta.url)
@@ -29,9 +30,12 @@ export const config = [
       },
     },
     plugins: {
+      "simple-import-sort": simpleImportSort,
       turbo: turboPlugin,
     },
     rules: {
+      "simple-import-sort/imports": "error",
+      "simple-import-sort/exports": "error",
       "turbo/no-undeclared-env-vars": "warn",
     },
   },
