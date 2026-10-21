@@ -1,0 +1,70 @@
+{
+  "type": "diff",
+  "version": "9",
+  "dialect": "postgres",
+  "id": "f804375b-d919-4785-95fd-32f291f74d06",
+  "prevIds": [
+    "ac68cca9-1ba7-4d5f-9eba-db67c8f61288"
+  ],
+  "footprints": [
+    {
+      "statementType": "create_enum",
+      "statementTarget": [
+        "enum",
+        "public",
+        "admin_user_status"
+      ],
+      "writes": [
+        "s|enum|public.admin_user_status",
+        "n|enum|public.admin_user_status",
+        "e|enum|public.admin_user_status",
+        "n|type|public.admin_user_status"
+      ],
+      "reads": [
+        "n|sch|public"
+      ]
+    },
+    {
+      "statementType": "alter_column",
+      "statementTarget": [
+        "column",
+        "public",
+        "admin_users",
+        "status"
+      ],
+      "writes": [
+        "s|colprop|public.admin_users.status.type",
+        "s|colprop|public.admin_users.status.default"
+      ],
+      "reads": [
+        "n|tbl|public.admin_users",
+        "n|sch|public",
+        "n|col|public.admin_users.status",
+        "n|enum|public.admin_user_status"
+      ],
+      "sqlHash": "0c0a55c89468c453"
+    }
+  ],
+  "deltas": [
+    {
+      "op": "create",
+      "row": {
+        "schema": "public",
+        "name": "admin_user_status",
+        "values": [
+          "active",
+          "inactive"
+        ],
+        "entityType": "enums"
+      }
+    },
+    {
+      "op": "alter",
+      "key": "columns\u0000[\"public\",\"admin_users\",\"status\"]",
+      "set": {
+        "type": "admin_user_status",
+        "typeSchema": "public"
+      }
+    }
+  ]
+}

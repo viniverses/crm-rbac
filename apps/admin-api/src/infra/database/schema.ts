@@ -19,6 +19,11 @@ export const adminRoleName = pgEnum('admin_role_name', [
   'operator',
 ]);
 
+export const adminUserStatus = pgEnum('admin_user_status', [
+  'active',
+  'inactive',
+]);
+
 export const workspaceStatus = pgEnum('workspace_status', [
   'provisioning',
   'active',
@@ -33,7 +38,7 @@ export const adminUsers = pgTable('admin_users', {
   name: text('name').notNull(),
   email: text('email').notNull().unique(),
   passwordHash: text('password_hash').notNull(),
-  status: text('status').notNull(),
+  status: adminUserStatus('status').notNull(),
   createdAt: timestamp('created_at', { withTimezone: true })
     .defaultNow()
     .notNull(),

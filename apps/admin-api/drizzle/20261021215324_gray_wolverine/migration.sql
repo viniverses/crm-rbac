@@ -1,0 +1,2 @@
+CREATE TYPE "admin_user_status" AS ENUM('active', 'inactive');--> statement-breakpoint
+ALTER TABLE "admin_users" ALTER COLUMN "status" SET DATA TYPE "admin_user_status" USING "status"::"admin_user_status";
